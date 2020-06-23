@@ -1,0 +1,10 @@
+{
+  "name": "algo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
