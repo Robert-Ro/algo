@@ -1,6 +1,7 @@
-// @ts-check
+export default class Stack<T> {
+private count: number
+private items: any
 
-class Stack {
   constructor() {
     this.items = {};
     this.count = 0;
@@ -20,7 +21,7 @@ class Stack {
   /**
    * O(1)
    */
-  push(element) {
+  push(element:T) {
     this.items[this.count] = element;
     this.count++;
   }
@@ -52,7 +53,6 @@ class Stack {
       const element = this.items[index];
       objString = `${objString}, ${element}`;
     }
-    console.log(objString);
     return objString;
   }
 }

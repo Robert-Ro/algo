@@ -1,4 +1,4 @@
-const { baseConverter } = require("./utils");
+const { baseConverter } = require("../../../src/js/stack/utils");
 
 //Common Matchers
 const input = 100345

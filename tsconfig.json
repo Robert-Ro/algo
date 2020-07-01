@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": ["es2017"],
+    "outDir": "./dist/ts",
+    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+    "alwaysStrict": true,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noImplicitReturns": true
+  },
+  "compileOnSave": true,
+  "exclude": ["node_modules", "dist", "test/ts/**/*", "**/*.test.ts"],
+  "include": [
+    "src/ts/**/*",
+    "test/ts/stack/stack-weakMap-array.test.js",
+    "test/ts/stack/stack-weakMap-obj.test.js",
+    "test/ts/stack/stack.test.ts",
+    "test/ts/stack/stack-array.test.js",
+    "test/ts/stack/stack-sysbol.test.js",
+    "test/ts/stack/utils.test.js"
+  ]
+}

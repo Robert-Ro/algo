@@ -1,4 +1,4 @@
-const Stack = require("./stack-symbol.js");
+const Stack = require("../../../src/js/stack/stack.js");
 
 //Common Matchers
 test("stack's count is 1", () => {

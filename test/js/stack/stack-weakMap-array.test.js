@@ -1,4 +1,4 @@
-const Stack = require("./stack-weakMap-obj.js");
+const Stack = require("../../../src/js/stack/stack-weakMap-array.js");
 
 //Common Matchers
 test("stack's count is 1", () => {

@@ -1,4 +1,4 @@
-const StackArray = require("./stack-array");
+const StackArray = require("../../../src/js/stack/stack-array");
 
 //Common Matchers
 test("stack's count is 1", () => {
