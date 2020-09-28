@@ -15,7 +15,7 @@ export class DoublyLinkedList<T> {
     this.head = null
     this.tail = null
   }
-  add(item: T) {
+  add(item: T): void {
     const node = new Node(item)
     if (!this.head) {
       this.head = node
@@ -26,7 +26,7 @@ export class DoublyLinkedList<T> {
       this.tail = node
     }
   }
-  addAt(index: number, item: T) {
+  addAt(index: number, item: T): void {
     const node = new Node(item)
     let current: Node<T> | null = this.head
     let counter = 1
@@ -56,7 +56,7 @@ export class DoublyLinkedList<T> {
       }
     }
   }
-  remove(item: T) {
+  remove(item: T): void {
     let current = this.head
     while (current) {
       if (current.data === item) {
@@ -77,7 +77,7 @@ export class DoublyLinkedList<T> {
       current = current.next
     }
   }
-  removeAt(index: number) {
+  removeAt(index: number): null | T {
     let current = this.head
     if (!current) {
       return null
@@ -98,7 +98,7 @@ export class DoublyLinkedList<T> {
           current.prev!.next = current.next
           current.next!.prev = current.prev
         }
-        return current.data
+        return current.data as T
       }
       current = current.next
       counter++
@@ -112,7 +112,7 @@ export class DoublyLinkedList<T> {
   // traverse() {}
   // find(item: T) {}
 
-  *values() {
+  *values(): Generator {
     let current = this.head
     while (current) {
       yield current.data
