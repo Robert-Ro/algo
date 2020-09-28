@@ -57,37 +57,54 @@ export class DoublyLinkedList<T> {
     }
   }
   remove(item: T) {
-    let current = this.head?.next
-    if (this.head?.data === item) {
-      // NOTE on head
-      if (!current) {
-        // NOTE only one element
-        this.head = null
-        return
-      } else {
-        current!.prev = null
-        this.head.next = null
-        this.head = current!
-        return
-      }
-    }
+    let current = this.head
     while (current) {
       if (current.data === item) {
-        // NOTE on the tail
-        if (current === this.tail) {
-          current.prev!.next = null
-          current.prev = null
-          this.tail = current.prev
+        if (current === this.head && current === this.tail) {
+          this.head = null
+          this.tail = null
+        } else if (current === this.head) {
+          this.head = this.head.next
+          this.head!.prev = null
+        } else if (current === this.tail) {
+          this.tail = this.tail.prev
+          this.tail!.next = null
         } else {
           current.prev!.next = current.next
           current.next!.prev = current.prev
         }
-        break
       }
       current = current.next
     }
   }
-  // removeAt(index: number) {}
+  removeAt(index: number) {
+    let current = this.head
+    if (!current) {
+      return null
+    }
+    let counter = 1
+    while (current) {
+      if (counter === index) {
+        if (current === this.head && current === this.tail) {
+          this.head = null
+          this.tail = null
+        } else if (current === this.head) {
+          this.head = this.head.next
+          this.head!.prev = null
+        } else if (current === this.tail) {
+          this.tail = this.tail.prev
+          this.tail!.next = null
+        } else {
+          current.prev!.next = current.next
+          current.next!.prev = current.prev
+        }
+        return current.data
+      }
+      current = current.next
+      counter++
+    }
+    return null
+  }
   // reverse() {}
   // swap() {}
   // isEmpty() {}
