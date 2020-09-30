@@ -6,14 +6,66 @@ export class Node<T> {
     this.next = null
   }
 }
-
-export class LinkedList<T> {
+export class LinkedList<T> implements ILinkedList<T> {
   head: Node<T> | null
   tail: Node<T> | null
-  count = 0
+  private _length = 0
   constructor() {
     this.head = null
     this.tail = null
+  }
+  // @ts-ignore
+  swap(index1: number, index2: number): void {
+    throw new Error('Method not implemented.')
+  }
+  // @ts-ignore
+  search(comparator: (data: T) => boolean): number {
+    let current = this.head
+    let index = 0
+    while (current) {
+      index++
+      if (comparator(current.data)) {
+        return index
+      }
+      current = current.next
+    }
+    return -1
+  }
+  traverse(fn: (node: Node<T>) => void): void {
+    let current = this.head
+    while (current !== null) {
+      fn(current)
+      current = current.next
+    }
+  }
+  // @ts-ignore
+  removeAt(index: number): T {
+    throw new Error('Method not implemented.')
+  }
+  // @ts-ignore
+  remove(item: T): void {
+    if (this.isEmpty()) {
+      return
+    }
+    let current = this.head
+    if (item === current!.data) {
+      if (!current!.next) {
+        this.head!.next = null
+        this.head = current!.next
+      }
+      return
+    }
+    while (current?.next) {
+      if (current.next.data === item) {
+        current.next = current.next.next
+        return
+      }
+      current = current.next
+    }
+  }
+  // @ts-ignore
+  addAt(index: number): number {
+    throw new Error('Method not implemented.')
   }
   *values() {
     let current = this.head
@@ -23,10 +75,10 @@ export class LinkedList<T> {
     }
   }
   isEmpty(): boolean {
-    return this.count === 0
+    return this.size() === 0
   }
   size(): number {
-    return this.count
+    return this._length
   }
   toString(): string {
     if (this.isEmpty()) {
@@ -40,7 +92,13 @@ export class LinkedList<T> {
     }
     return str
   }
-  add(item: T) {
+  /**
+   * insert at tail of the linkedlist
+   * NOTE 1.the linkedlist is empty; 2.the linkedlist is not empty
+   * @param item
+   * @returns the length of the linkedlist
+   */
+  add(item: T): number {
     const node = new Node(item)
     if (!this.head) {
       this.head = node
@@ -51,29 +109,44 @@ export class LinkedList<T> {
       }
       current.next = node
     }
-    this.count++
+    this._length++
+    return this.size()
   }
+
   reverse() {
     if (this.isEmpty() || this.size() === 1) {
       return
     }
     let current = this.head
+    let prev = null
     let next = null
-    while (current) {
-      let _next = current.next
-
-      current.next = next
-
-      next = current
-      current = _next
+    while (current !== null) {
+      next = current.next
+      current.next = prev
+      prev = current
+      current = next
     }
-    this.head = next // NOTE 头节点重置
+    this.head = prev // NOTE 头节点重置
+  }
+  indexOf(data: T): number {
+    if (this.isEmpty()) {
+      return -1
+    }
+    let current = this.head
+    let index = 0
+    while (current) {
+      index++
+      if (current.data === data) {
+        return index
+      }
+      current = current.next
+    }
+    return -1
   }
   // addAt(index: number, item: T): void {}
   // getAt(index: number): Node<T> | null {
   //   return null
   // }
   // remove(item:T):void{}
-  // indexOf(item:T):number{}
   // removeAt(index:number):Node<T>|null{}
 }
