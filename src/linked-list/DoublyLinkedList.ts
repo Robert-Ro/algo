@@ -1,9 +1,9 @@
-export class Node<T> {
-  data: T
+import { Node as BaseNode } from './LinkedList'
+export class Node<T> extends BaseNode<T> {
   prev: Node<T> | null
   next: Node<T> | null
   constructor(data: T) {
-    this.data = data
+    super(data)
     this.prev = null
     this.next = null
   }
@@ -105,7 +105,20 @@ export class DoublyLinkedList<T> {
     }
     return null
   }
-  // reverse() {}
+  reverse() {
+    let current = this.head
+    let prev = null
+    while (current) {
+      let next = current.next
+      current.prev = next
+      current.next = prev
+
+      prev = current
+      current = next
+    }
+    this.tail = this.head
+    this.head = prev
+  }
   // swap() {}
   // isEmpty() {}
   // length() {}

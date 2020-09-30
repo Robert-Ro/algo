@@ -16,6 +16,7 @@
     "paths": {
       "@/*": ["./*"]
     },
+    "outDir": "./out",
     "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
     "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
     "alwaysStrict": true,
@@ -27,8 +28,8 @@
     "skipLibCheck": true,
 
     // 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误
-    "target": "ES2019",
-    "module": "ESNext"
+    "target": "es5",
+    "module": "commonjs"
   },
   "compileOnSave": true,
   "exclude": ["node_modules"],
