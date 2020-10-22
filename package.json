@@ -30,7 +30,8 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -c .commitlintrc.js -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -c .commitlintrc.js -E HUSKY_GIT_PARAMS",
+      "pre-push":"test"
     }
   },
   "lint-staged": {
