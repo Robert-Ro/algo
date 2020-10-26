@@ -31,7 +31,7 @@
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -c .commitlintrc.js -E HUSKY_GIT_PARAMS",
-      "pre-push":"test"
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
