@@ -56,5 +56,3 @@ export default class Stack<T> {
     return objString
   }
 }
-
-module.exports = Stack

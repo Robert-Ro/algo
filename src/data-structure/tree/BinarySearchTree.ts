@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Compare, defaultCompare } from '@/util'
 import { Node } from './Node'
-import { Compare, defaultCompare } from '../util'
 
 interface ITree {
   insert(key: number): void

@@ -14,11 +14,9 @@ export class LinkedList<T> implements ILinkedList<T> {
     this.head = null
     this.tail = null
   }
-  // @ts-ignore
-  swap(index1: number, index2: number): void {
+  swap(): void {
     throw new Error('Method not implemented.')
   }
-  // @ts-ignore
   search(comparator: (data: T) => boolean): number {
     let current = this.head
     let index = 0

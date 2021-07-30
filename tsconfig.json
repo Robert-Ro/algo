@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "isolatedModules": true,
-
     /* Strict Type-Checking Options */
     "strict": true,
     /* Additional Checks */
@@ -9,12 +9,17 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "lib": ["es2017"],
+    "lib": [
+      "es2017",
+      "DOM"
+    ],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "outDir": "./out",
     "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -22,16 +27,19 @@
     "alwaysStrict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-
     // 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误
     "target": "es5",
     "module": "commonjs"
   },
   "compileOnSave": true,
-  "exclude": ["node_modules"],
-  "include": ["./src/**/*", "__tests__"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*",
+    "__tests__"
+  ]
 }

@@ -1,6 +1,6 @@
 // @ts-check
 const items = new WeakMap()
-class StackWeakMapArray {
+export default class StackWeakMapArray {
   constructor() {
     items.set(this, [])
   }
@@ -17,7 +17,7 @@ class StackWeakMapArray {
   /**
    * O(1)
    */
-  push(element) {
+  push(element: any) {
     items.get(this).push(element)
   }
   size() {
@@ -45,5 +45,3 @@ class StackWeakMapArray {
     return JSON.stringify(items.get(this))
   }
 }
-
-module.exports = Stack

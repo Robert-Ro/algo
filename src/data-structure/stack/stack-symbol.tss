@@ -1,7 +1,6 @@
-// @ts-check
 const items = Symbol('items')
 const count = Symbol('count')
-class StackSymbol {
+export default class StackSymbol {
   constructor() {
     this[items] = {}
     this[count] = 0
@@ -57,5 +56,3 @@ class StackSymbol {
     return objString
   }
 }
-
-module.exports = Stack

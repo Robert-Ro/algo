@@ -1,4 +1,4 @@
-import StackArray from '@/stack/stack-array'
+import StackArray from './stack-array'
 
 test("stack's count is 1", () => {
   const sa = new StackArray()

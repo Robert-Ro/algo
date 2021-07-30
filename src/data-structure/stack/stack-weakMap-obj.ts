@@ -1,7 +1,7 @@
 // @ts-check
 const items = new WeakMap()
 const count = new WeakMap()
-class StackWeapMapObj {
+export default class StackWeapMapObj {
   constructor() {
     items.set(this, {})
     count.set(this, 0)
@@ -22,7 +22,7 @@ class StackWeapMapObj {
   /**
    * O(1)
    */
-  push(element) {
+  push(element: any) {
     const _count = count.get(this)
     items.get(this)[_count] = element
     const __count = _count + 1
@@ -53,5 +53,3 @@ class StackWeapMapObj {
     return JSON.stringify(items.get(this))
   }
 }
-
-module.exports = Stack
