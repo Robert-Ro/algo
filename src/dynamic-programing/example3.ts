@@ -48,7 +48,6 @@ export const method2 = (input: number[]): number => {
   return maxProfit
 }
 /**
- * 贪心算法
  * 多次交易求累计最大收益
  * @param prices
  * @param fee
