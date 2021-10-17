@@ -99,31 +99,49 @@ export function binarySearchLastMatched(nums: number[], target: number): number 
   }
   return -1
 }
+/**
+ * 变体三：查找第一个大于等于给定值的元素
+ * @param nums
+ * @param target
+ * @returns
+ */
 export function binarySearchFirstEqualOrGreater(nums: number[], target: number): number {
-  let left = 0
-  let right = nums.length - 1
-  while (left <= right) {
-    const middle = left + ((right - left) >> 1)
+  let low = 0
+  let high = nums.length - 1
+  while (low <= high) {
+    const middle = low + ((high - low) >> 1)
     if (nums[middle] >= target) {
-      right = middle - 1
+      if (middle == 0 || nums[middle - 1] < target) {
+        return middle
+      }
+      high = middle - 1
     } else {
-      left = middle + 1
+      low = middle + 1
     }
   }
-  return nums.length > left ? left : -1
+  return -1
 }
-export function binarySearchLastEqualOrSmall(nums: number[], target: number): number {
-  let left = 0
-  let right = nums.length - 1
-  while (left <= right) {
-    const middle = left + ((right - left) >> 1)
-    if (nums[middle] > target) {
-      right = middle - 1
+/**
+ * 变体四：查找最后一个小于等于给定值的元素
+ * @param nums
+ * @param target
+ * @returns
+ */
+export function binarySearchLastEqualOrSmaller(nums: number[], target: number): number {
+  let low = 0
+  let high = nums.length - 1
+  while (low <= high) {
+    const mid = low + ((high - low) >> 1)
+    if (nums[mid] <= target) {
+      if (mid === nums.length - 1 || nums[mid + 1] > target) {
+        return mid
+      }
+      low = mid + 1
     } else {
-      left = middle + 1
+      high = mid - 1
     }
   }
-  return right >= 0 ? right : -1
+  return -1
 }
 /*********二分法应用***********/
 /**
@@ -149,6 +167,7 @@ export const getSqrt = (num: number): number => {
 }
 /**
  * 牛顿弦切法求解平方根
+ * 采用数学思想解决问题
  * @param number
  * @returns
  */
@@ -188,4 +207,92 @@ export const firstErrorVersion = function (isBadVersion: (num: number) => boolea
     }
     return -1
   }
+}
+/**
+ * 搜索旋转排序数组
+ * @https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
+ * NOTE 关键：从数组中间分开，总有一边是有序的
+ * @param nums
+ * @param target
+ * @returns
+ */
+export function binarySearchInCycleArray(nums: number[], target: number): number {
+  const n = nums.length
+  if (n === 0) return -1
+  if (n === 1) return nums[0] === target ? 0 : -1
+
+  let low = 0
+  let high = nums.length - 1
+
+  while (low <= high) {
+    const mid = low + ((high - low) >> 1)
+    if (nums[mid] === target) {
+      return mid
+    }
+    //[low, middle] (middle, high]
+    if (nums[low] <= nums[mid]) {
+      // 前半边有序
+      if (nums[low] <= target && nums[mid] > target) {
+        // 目标元素落在左半边里，
+        high = mid - 1 // 进行常规二分查找
+      } else {
+        // 目标元素落在右半边无序数组中
+        low = mid + 1
+      }
+    } else {
+      // 后半边有序
+      if (nums[mid] < target && nums[high] >= target) {
+        // 目标元素落在右半边里，
+        low = mid + 1 // 进行常规二分查找
+      } else {
+        // 目标元素落在左半边无序数组中
+        high = mid - 1
+      }
+    }
+  }
+  return -1
+}
+
+/**
+ * 搜索插入位置
+ * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+ * @https://leetcode-cn.com/problems/search-insert-position/
+ * @param nums
+ * @param target
+ * @returns
+ */
+export function searchInsert(nums: number[], target: number): number {
+  // 处理边界情况
+  if (nums[0] >= target) {
+    return 0
+  }
+  if (nums[nums.length - 1] === target) {
+    return nums.length - 1
+  }
+  if (nums[nums.length - 1] < target) {
+    return nums.length
+  }
+  let low = 0
+  let high = nums.length - 1
+  while (low <= high) {
+    const mid = low + ((high - low) >> 2)
+    if (nums[mid] === target) {
+      return mid
+    } else if (nums[mid] > target) {
+      high = mid - 1
+    } else {
+      low = mid + 1
+    }
+  }
+  return low
+}
+/**
+ * 两数之和 II - 输入有序数组
+ * @https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
+ * 给定一个已按照 非递减顺序排列 的整数数组 numbers ，请你从数组中找出两个数满足相加之和等于目标数 target
+ * @param numbers
+ * @param target
+ */
+export function twoSum(numbers: number[], target: number): number[] {
+  return []
 }
