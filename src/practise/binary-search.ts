@@ -275,7 +275,7 @@ export function searchInsert(nums: number[], target: number): number {
   let low = 0
   let high = nums.length - 1
   while (low <= high) {
-    const mid = low + ((high - low) >> 2)
+    const mid = low + ((high - low) >> 1)
     if (nums[mid] === target) {
       return mid
     } else if (nums[mid] > target) {
@@ -288,11 +288,58 @@ export function searchInsert(nums: number[], target: number): number {
 }
 /**
  * 两数之和 II - 输入有序数组
+ * 二分查找法
  * @https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
- * 给定一个已按照 非递减顺序排列 的整数数组 numbers ，请你从数组中找出两个数满足相加之和等于目标数 target
+ * 给定一个已按照非递减顺序排列的整数数组numbers，请你从数组中找出两个数满足相加之和等于目标数target
  * @param numbers
  * @param target
  */
 export function twoSum(numbers: number[], target: number): number[] {
+  // solution先固定一个值，时间复杂度O(nLog(n))
+  for (let i = 0; i < numbers.length; i++) {
+    const ele = numbers[i]
+    let low = i
+    let high = numbers.length - 1
+    while (low <= high) {
+      const mid = low + ((high - low) >> 1)
+      if (ele + numbers[mid] > target) {
+        high = mid - 1
+      } else if (ele + numbers[mid] < target) {
+        low = mid + 1
+      } else {
+        // 不能使用重复的数据
+        if (i === mid) {
+          low = mid + 1
+        } else {
+          return [i + 1, mid + 1]
+        }
+      }
+    }
+  }
+
+  return []
+}
+
+/**
+ * 两数之和 II - 输入有序数组
+ * 双指针法
+ * @https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
+ * 给定一个已按照非递减顺序排列的整数数组numbers，请你从数组中找出两个数满足相加之和等于目标数target
+ * 时间复杂度：O(n)，其中 n 是数组的长度。两个指针移动的总次数最多为 n 次。
+ * @param numbers
+ * @param target
+ */
+export function twoSum2(numbers: number[], target: number): number[] {
+  let low = 0
+  let high = numbers.length - 1
+  while (low <= high) {
+    if (numbers[low] + numbers[high] === target) {
+      return [low + 1, high + 1]
+    } else if (numbers[low] + numbers[high] > target) {
+      high = high - 1
+    } else {
+      low = low + 1
+    }
+  }
   return []
 }
