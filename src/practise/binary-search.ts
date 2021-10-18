@@ -319,27 +319,3 @@ export function twoSum(numbers: number[], target: number): number[] {
 
   return []
 }
-
-/**
- * 两数之和 II - 输入有序数组
- * 双指针法
- * @https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
- * 给定一个已按照非递减顺序排列的整数数组numbers，请你从数组中找出两个数满足相加之和等于目标数target
- * 时间复杂度：O(n)，其中 n 是数组的长度。两个指针移动的总次数最多为 n 次。
- * @param numbers
- * @param target
- */
-export function twoSum2(numbers: number[], target: number): number[] {
-  let low = 0
-  let high = numbers.length - 1
-  while (low <= high) {
-    if (numbers[low] + numbers[high] === target) {
-      return [low + 1, high + 1]
-    } else if (numbers[low] + numbers[high] > target) {
-      high = high - 1
-    } else {
-      low = low + 1
-    }
-  }
-  return []
-}
