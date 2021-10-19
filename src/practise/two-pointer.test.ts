@@ -1,6 +1,11 @@
 import {
+  moveZeroes,
+  reverseString,
+  reverseString2,
+  reverseWords,
   rotateSolution1,
   rotateSolution2,
+  rotateSolution3,
   twoSumISolution1,
   twoSumISolution2,
   twoSumWithSortArray,
@@ -11,10 +16,12 @@ describe('two pointer test cases', () => {
     it('case 1', () => {
       expect(rotateSolution1([1, 2, 3, 4, 5, 6, 7], 3)).toStrictEqual([5, 6, 7, 1, 2, 3, 4])
       expect(rotateSolution2([1, 2, 3, 4, 5, 6, 7], 3)).toStrictEqual([5, 6, 7, 1, 2, 3, 4])
+      expect(rotateSolution3([1, 2, 3, 4, 5, 6, 7], 3)).toStrictEqual([5, 6, 7, 1, 2, 3, 4])
     })
     it('case 2', () => {
       expect(rotateSolution1([-1, -100, 3, 99], 2)).toStrictEqual([3, 99, -1, -100])
       expect(rotateSolution2([-1, -100, 3, 99], 2)).toStrictEqual([3, 99, -1, -100])
+      expect(rotateSolution3([-1, -100, 3, 99], 2)).toStrictEqual([3, 99, -1, -100])
     })
   })
   describe('twoSum tests', () => {
@@ -49,6 +56,45 @@ describe('two pointer test cases', () => {
         expect(twoSumISolution1([3, 3], 6)).toStrictEqual([0, 1])
         expect(twoSumISolution2([3, 3], 6)).toStrictEqual([0, 1])
       })
+    })
+  })
+  describe('leetcode 344 reverse string', () => {
+    it('case 1', () => {
+      expect(reverseString(['h', 'e', 'l', 'l', 'o'])).toStrictEqual(['o', 'l', 'l', 'e', 'h'])
+      expect(reverseString2(['h', 'e', 'l', 'l', 'o'])).toStrictEqual(['o', 'l', 'l', 'e', 'h'])
+    })
+    it('case 2', () => {
+      expect(reverseString(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual([
+        'h',
+        'a',
+        'n',
+        'n',
+        'a',
+        'H',
+      ])
+      expect(reverseString2(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual([
+        'h',
+        'a',
+        'n',
+        'n',
+        'a',
+        'H',
+      ])
+    })
+  })
+  describe('leetcode 557 反转字符串中的单词 III', () => {
+    it('case 1', () => {
+      expect(reverseWords("Let's take LeetCode contest")).toStrictEqual(
+        "s'teL ekat edoCteeL tsetnoc"
+      )
+    })
+  })
+  describe('leetcode 283. 移动零', () => {
+    it('case 1', () => {
+      expect(moveZeroes([0, 1, 0, 3, 12])).toStrictEqual([1, 3, 12, 0, 0])
+    })
+    it('case 2', () => {
+      expect(moveZeroes([1, 2, 3, 4, 12])).toStrictEqual([1, 2, 3, 4, 12])
     })
   })
 })

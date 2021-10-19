@@ -8,11 +8,18 @@
  */
 export function rotateSolution1(nums: number[], k: number): number[] {
   for (let i = 0; i < k; i++) {
-    const last = nums.pop()!
-    nums.unshift(last)
+    const last = nums.pop()
+    if (last) nums.unshift(last)
   }
   return nums
 }
+/**
+ * 使用额外的数组
+ * 空间复杂度O(n), 时间复杂度O(n)
+ * @param nums
+ * @param k
+ * @returns
+ */
 export function rotateSolution2(nums: number[], k: number): number[] {
   const res = Array(nums.length).fill(0)
   for (let i = 0; i < nums.length; i++) {
@@ -20,6 +27,25 @@ export function rotateSolution2(nums: number[], k: number): number[] {
     res[nIndex % nums.length] = nums[i]
   }
   return res
+}
+const reverse = (nums: number[], start: number, end: number) => {
+  while (start < end) {
+    ;[nums[start++], nums[end--]] = [nums[end], nums[start]]
+  }
+}
+/**
+ * 数组翻转
+ * 空间复杂度O(1), 时间复杂度O(n)
+ * @param nums
+ * @param k
+ * @returns
+ */
+export function rotateSolution3(nums: number[], k: number): number[] {
+  k %= nums.length // k可能比nums.length还要大
+  reverse(nums, 0, nums.length - 1)
+  reverse(nums, 0, k - 1)
+  reverse(nums, k, nums.length - 1)
+  return nums
 }
 
 /**
@@ -86,4 +112,68 @@ export function twoSumISolution2(nums: number[], target: number): number[] {
     }
   }
   return [-1, -1]
+}
+
+/**
+ * 344. 反转字符串
+ * https://leetcode-cn.com/problems/reverse-string/
+ * Do not return anything, modify s in-place instead.
+ * 要求：空间复杂度O(1)，原地修改输入数组
+ * @param s
+ */
+export function reverseString(s: string[]): string[] {
+  let left = 0
+  let right = s.length - 1
+  while (left < right) {
+    const temp = s[left]
+    s[left] = s[right]
+    s[right] = temp
+    left++
+    right--
+  }
+  return s
+}
+export function reverseString2(s: string[]): string[] {
+  let left = 0
+  let right = s.length - 1
+  for (; left < right; left++, right--) {
+    // 交换了n/2次
+    ;[s[left], s[right]] = [s[right], s[left]]
+  }
+  return s
+}
+/**
+ * 557. 反转字符串中的单词 III
+ * @https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/
+ * @param s
+ */
+export function reverseWords(s: string): string {
+  return s
+    .split(' ')
+    .map((item) => reverseString2(item.split('')).join(''))
+    .join(' ')
+}
+
+/**
+ * 283. 移动零
+ * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+ * @https://leetcode-cn.com/problems/move-zeroes/
+ * @param nums
+ * @returns
+ */
+export function moveZeroes(nums: number[]): number[] {
+  // 1. 必须在原数组上操作，不能拷贝额外的数组。
+  // 2. 尽量减少操作次数。
+  // Hint: The idea would be to have one pointer for iterating the array and another pointer
+  // that just works on the non-zero elements of the array.
+  // NOTE 快慢指针思想?
+  let j = 0
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      const temp = nums[i]
+      nums[i] = nums[j]
+      nums[j++] = temp
+    }
+  }
+  return nums
 }
