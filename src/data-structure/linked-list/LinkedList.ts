@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export class Node<T> {
   data: T
   next: Node<T> | null
@@ -36,11 +37,9 @@ export class LinkedList<T> implements ILinkedList<T> {
       current = current.next
     }
   }
-  // @ts-ignore
   removeAt(index: number): T {
     throw new Error('Method not implemented.')
   }
-  // @ts-ignore
   remove(item: T): void {
     if (this.isEmpty()) {
       return
@@ -61,7 +60,6 @@ export class LinkedList<T> implements ILinkedList<T> {
       current = current.next
     }
   }
-  // @ts-ignore
   addAt(index: number): number {
     throw new Error('Method not implemented.')
   }

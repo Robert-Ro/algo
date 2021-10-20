@@ -1,5 +1,9 @@
 import {
+  ListNode,
+  middleNode,
+  middleNode2,
   moveZeroes,
+  removeNthFromEnd,
   reverseString,
   reverseString2,
   reverseWords,
@@ -95,6 +99,65 @@ describe('two pointer test cases', () => {
     })
     it('case 2', () => {
       expect(moveZeroes([1, 2, 3, 4, 12])).toStrictEqual([1, 2, 3, 4, 12])
+    })
+  })
+  describe('leetcode 876. 链表的中间结点', () => {
+    it('case 1', () => {
+      const listnode = new ListNode(
+        1,
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))
+      )
+      expect(middleNode(listnode)).toStrictEqual(
+        new ListNode(3, new ListNode(4, new ListNode(5, null)))
+      )
+      expect(middleNode2(listnode)).toStrictEqual(
+        new ListNode(3, new ListNode(4, new ListNode(5, null)))
+      )
+    })
+    it('case 2', () => {
+      const listnode = new ListNode(
+        1,
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6, null)))))
+      )
+      expect(middleNode(listnode)).toStrictEqual(
+        new ListNode(4, new ListNode(5, new ListNode(6, null)))
+      )
+      expect(middleNode2(listnode)).toStrictEqual(
+        new ListNode(4, new ListNode(5, new ListNode(6, null)))
+      )
+    })
+    it('case 3', () => {
+      const listnode = new ListNode(1, null)
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(1, null))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(1, null))
+    })
+    it('case 4', () => {
+      const listnode = new ListNode(1, new ListNode(2, null))
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(2, null))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(2, null))
+    })
+  })
+  describe('leetcode 19. 删除链表的倒数第N个结点', () => {
+    it('case 1', () => {
+      const listnode = new ListNode(
+        1,
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))
+      )
+      expect(removeNthFromEnd(listnode, 2)).toStrictEqual(
+        new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5, null))))
+      )
+    })
+    it('case 2', () => {
+      const listnode = new ListNode(1, null)
+      expect(removeNthFromEnd(listnode, 1)).toStrictEqual(null)
+    })
+    it('case 3', () => {
+      const listnode = new ListNode(1, new ListNode(2, null))
+      expect(removeNthFromEnd(listnode, 1)).toStrictEqual(new ListNode(1, null))
+    })
+    it('case 4', () => {
+      const listnode = new ListNode(1, new ListNode(2, null))
+      expect(removeNthFromEnd(listnode, 2)).toStrictEqual(new ListNode(2, null))
     })
   })
 })

@@ -177,3 +177,85 @@ export function moveZeroes(nums: number[]): number[] {
   }
   return nums
 }
+export class ListNode {
+  val: number
+  next: ListNode | null
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val
+    this.next = next === undefined ? null : next
+  }
+}
+/**
+ * 876. 链表的中间结点
+ * @https://leetcode-cn.com/problems/middle-of-the-linked-list/
+ * 快慢指针，优化遍历一次
+ * 时间复杂度：O(N)，空间复杂度：O(1)
+ * @param head
+ */
+export function middleNode(head: ListNode | null): ListNode | null {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow?.next || null // slow 一次走一步
+    fast = fast.next.next // fast一次走两步
+  }
+  // fast到达链表末尾时，slow必然位于中间
+  return slow
+}
+/**
+ * 两次遍历
+ * 时间复杂度：O(N)，空间复杂度：O(1)
+ * @param head
+ * @returns
+ */
+export function middleNode2(head: ListNode | null): ListNode | null {
+  // 给定一个头结点为 head 的非空单链表，返回链表的中间结点。
+  // 如果有两个中间结点，则返回第二个中间结点。
+  // 快慢节点?
+
+  let n = 0
+  let curr = head
+
+  while (curr) {
+    ++n
+    curr = curr.next
+  }
+
+  let k = 0
+  curr = head
+  //Math.trunc() 方法会将数字的小数部分去掉，只保留整数部分。https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+  while (k < Math.trunc(n / 2)) {
+    ++k
+    curr = curr?.next || null
+  }
+  return curr
+}
+
+/**
+ * 19. 删除链表的[倒数]第 N 个结点
+ * @https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
+ * @param head
+ * @param n
+ */
+export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+  // 给你一个链表，删除链表的倒数第n个结点，并且返回链表的头结点。
+  const preNode = new ListNode(0)
+  preNode.next = head
+  let end: ListNode | null = preNode
+  let start = head
+  // 倒数第k个，正数第n-k个
+  //fast先走，slow慢n步走，
+  while (n > 0) {
+    start = start?.next || null
+    n--
+  }
+  while (start) {
+    start = start?.next || null
+    end = end?.next || null
+  }
+  // fast到达末尾，-> slow就是目标节点上一个节点
+  if (end && end.next) {
+    end.next = end?.next?.next || null
+  }
+  return preNode.next
+}
