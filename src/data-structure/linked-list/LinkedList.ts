@@ -1,19 +1,33 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-export class Node<T> {
+export class LinkedNode<T> implements INode<T> {
   data: T
-  next: Node<T> | null
+  next: LinkedNode<T> | null
   constructor(item: T) {
     this.data = item
     this.next = null
   }
 }
 export class LinkedList<T> implements ILinkedList<T> {
-  head: Node<T> | null
-  tail: Node<T> | null
+  head: LinkedNode<T> | null
+  tail: LinkedNode<T> | null
   private _length = 0
   constructor() {
     this.head = null
     this.tail = null
+  }
+  get(index: number): T | null {
+    throw new Error('Method not implemented.')
+  }
+  addAtHead(val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  addAtTail(val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  addAtIndex(index: number, val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  deleteAtIndex(index: number): T | null {
+    throw new Error('Method not implemented.')
   }
   swap(): void {
     throw new Error('Method not implemented.')
@@ -30,7 +44,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return -1
   }
-  traverse(fn: (node: Node<T>) => void): void {
+  traverse(fn: (node: LinkedNode<T>) => void): void {
     let current = this.head
     while (current !== null) {
       fn(current)
@@ -95,7 +109,7 @@ export class LinkedList<T> implements ILinkedList<T> {
    * @returns the length of the linkedlist
    */
   add(item: T): number {
-    const node = new Node(item)
+    const node = new LinkedNode(item)
     if (!this.head) {
       this.head = node
     } else {

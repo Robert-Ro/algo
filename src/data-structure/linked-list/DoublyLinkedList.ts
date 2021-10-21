@@ -1,22 +1,54 @@
-import { Node as BaseNode } from './LinkedList'
-export class Node<T> extends BaseNode<T> {
-  prev: Node<T> | null
-  next: Node<T> | null
+import { LinkedNode } from './LinkedList'
+export class DoubleLinkedListNode<T> extends LinkedNode<T> implements IDoubleLinkedListNode<T> {
   constructor(data: T) {
     super(data)
     this.prev = null
     this.next = null
   }
+  prev: IDoubleLinkedListNode<T> | null
 }
-export class DoublyLinkedList<T> {
-  head: Node<T> | null
-  tail: Node<T> | null
+export class DoublyLinkedList<T> implements ILinkedList<T> {
+  head: DoubleLinkedListNode<T> | null
+  tail: DoubleLinkedListNode<T> | null
   constructor() {
     this.head = null
     this.tail = null
   }
+  size(): number {
+    throw new Error('Method not implemented.')
+  }
+  traverse(fn: (node: IDoubleLinkedListNode<T>) => void): void {
+    throw new Error('Method not implemented.')
+  }
+  search(comparator: (data: T) => boolean): number {
+    throw new Error('Method not implemented.')
+  }
+  indexOf(data: T): number {
+    throw new Error('Method not implemented.')
+  }
+  isEmpty(): boolean {
+    throw new Error('Method not implemented.')
+  }
+  swap(a: number, b: number): void {
+    throw new Error('Method not implemented.')
+  }
+  get(index: number): null | T {
+    throw new Error('Method not implemented.')
+  }
+  addAtHead(val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  addAtTail(val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  addAtIndex(index: number, val: T): void {
+    throw new Error('Method not implemented.')
+  }
+  deleteAtIndex(index: number): T | null {
+    throw new Error('Method not implemented.')
+  }
   add(item: T): void {
-    const node = new Node(item)
+    const node = new DoubleLinkedListNode(item)
     if (!this.head) {
       this.head = node
       this.tail = node
@@ -27,8 +59,8 @@ export class DoublyLinkedList<T> {
     }
   }
   addAt(index: number, item: T): void {
-    const node = new Node(item)
-    let current: Node<T> | null = this.head
+    const node = new DoubleLinkedListNode(item)
+    let current: DoubleLinkedListNode<T> | null = this.head
     let counter = 1
 
     // NOTE insert on head
@@ -119,11 +151,6 @@ export class DoublyLinkedList<T> {
     this.tail = this.head
     this.head = prev
   }
-  // swap() {}
-  // isEmpty() {}
-  // length() {}
-  // traverse() {}
-  // find(item: T) {}
 
   *values(): Generator {
     let current = this.head
