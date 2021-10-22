@@ -33,6 +33,7 @@
 - [fucking-algorithm](https://github.com/labuladong/fucking-algorithm)
 - [hello-algorithm](https://github.com/geekxh/hello-algorithm)
 - [数据结构与算法之美](https://github.com/wangzheng0822/algo)配套 repo
+- [Learning-JavaScript-Data-Structures-and-Algorithms-Third-Edition](https://github.com/PacktPublishing/Learning-JavaScript-Data-Structures-and-Algorithms-Third-Edition)
 
 ## letcode 练习
 

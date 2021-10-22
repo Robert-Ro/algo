@@ -13,6 +13,9 @@
         "./*"
       ]
     },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "outDir": "./out",
     "skipLibCheck": true,
     "target": "es5",

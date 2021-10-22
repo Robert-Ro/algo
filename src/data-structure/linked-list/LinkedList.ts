@@ -1,3 +1,5 @@
+import { ILinkedList, INode } from '.'
+
 export class LinkedNode<T> implements INode<T> {
   data: T
   next: LinkedNode<T> | null
@@ -5,158 +7,157 @@ export class LinkedNode<T> implements INode<T> {
     this.data = item
     this.next = null
   }
+  toString(): string {
+    return `${this.data}`
+  }
 }
+/**
+ * 链表
+ * 索引起始位置0
+ */
 export class LinkedList<T> implements ILinkedList<T> {
   head: LinkedNode<T> | null
   tail: LinkedNode<T> | null
-  private _length = 0
   constructor() {
     this.head = null
     this.tail = null
   }
-  get(index: number): T | null {
-    throw new Error('Method not implemented.')
+
+  clear(): void {
+    this.head = null
   }
-  addAtHead(val: T): void {
-    throw new Error('Method not implemented.')
+  findByIndex(index: number): INode<T> | null {
+    let start = 0
+    let curr = this.head
+    while (curr && start !== index) {
+      curr = curr.next
+      start++
+    }
+    return curr || null
   }
-  addAtTail(val: T): void {
-    throw new Error('Method not implemented.')
+  findByValue(value: T): INode<T> | null {
+    let curr = this.head
+    while (curr?.next) {
+      if (curr.next.data === value) return curr.next
+      curr = curr.next
+    }
+    return curr?.next || null
   }
-  addAtIndex(index: number, val: T): void {
-    throw new Error('Method not implemented.')
+  addAtHead(value: T): boolean {
+    const curr = this.head
+    const node = new LinkedNode(value)
+    if (curr) {
+      this.head = node
+      node.next = curr
+    } else {
+      this.head = node
+    }
+    return true
   }
-  deleteAtIndex(index: number): T | null {
-    throw new Error('Method not implemented.')
-  }
-  swap(): void {
-    throw new Error('Method not implemented.')
-  }
-  search(comparator: (data: T) => boolean): number {
-    let current = this.head
-    let index = 0
-    while (current) {
-      index++
-      if (comparator(current.data)) {
-        return index
+  add(value: T): boolean
+  add(value: T, index: number): boolean
+  add(value: T, index?: unknown): boolean {
+    if (typeof index === 'number') {
+      const size = this.size()
+      if (index > size) return false
+      // 索引等于链表长度，尾部添加
+      if (index === size) return this.addAtTail(value)
+      // 索引小于0，在head处添加；索引等于0：链表长度等于0(无所谓头尾添加);链表长度>0(头部添加)
+      if (index <= 0) return this.addAtHead(value)
+      // 在链表中的第index个节点之前添加值为val的节点
+      let curr = this.head
+      let start = 0
+      const node: LinkedNode<T> = new LinkedNode(value)
+      while (curr && start <= index - 1) {
+        //找到index-1的节点
+        curr = curr.next
+        start++
       }
-      current = current.next
-    }
-    return -1
-  }
-  traverse(fn: (node: LinkedNode<T>) => void): void {
-    let current = this.head
-    while (current !== null) {
-      fn(current)
-      current = current.next
-    }
-  }
-  removeAt(index: number): T {
-    throw new Error('Method not implemented.')
-  }
-  remove(item: T): void {
-    if (this.isEmpty()) {
-      return
-    }
-    let current = this.head
-    if (item === current!.data) {
-      if (!current!.next) {
-        this.head!.next = null
-        this.head = current!.next
+      if (curr) {
+        const _next = curr.next
+        curr.next = node
+        node.next = _next
       }
-      return
+      return true
+    } else {
+      return this.addAtTail(value)
     }
-    while (current?.next) {
-      if (current.next.data === item) {
-        current.next = current.next.next
-        return
+  }
+  addAtTail(value: T): boolean {
+    const node: LinkedNode<T> = new LinkedNode(value)
+    if (!this.head) {
+      this.head = node
+    } else {
+      let curr = this.head
+      while (curr.next) {
+        curr = curr.next
       }
-      current = current.next
+      curr.next = node
+    }
+    return true
+  }
+  peek(): INode<T> | null {
+    return this.head
+  }
+  size(): number {
+    let size = 0
+    let curr = this.peek()
+    while (curr) {
+      curr = curr.next
+      ++size
+    }
+    return size
+  }
+  *values(): Generator<T, void, undefined> {
+    let curr = this.head
+    while (curr) {
+      yield curr.data
+      curr = curr.next
     }
   }
-  addAt(index: number): number {
-    throw new Error('Method not implemented.')
-  }
-  *values() {
-    let current = this.head
-    while (current) {
-      yield current.data
-      current = current.next
-    }
+  toArray(): T[] {
+    return Array.from(this.values())
   }
   isEmpty(): boolean {
     return this.size() === 0
   }
-  size(): number {
-    return this._length
-  }
-  toString(): string {
-    if (this.isEmpty()) {
-      return ''
+  deleteAtIndex(index: number): INode<T> | null {
+    let curr = this.head
+    let start = 0
+    if (index === 0) {
+      this.head = null
+      return curr
     }
-    let str = ''
-    let current = this.head
-    while (current !== null) {
-      str += `--->${current.data}`
-      current = current.next
+    while (curr) {
+      curr = curr.next
+      start++
+      if (start === index - 1) {
+        const _next = curr?.next
+        if (curr) {
+          curr.next = _next?.next || null
+          return _next || null
+        }
+      }
     }
-    return str
+    return null
   }
-  /**
-   * insert at tail of the linkedlist
-   * NOTE 1.the linkedlist is empty; 2.the linkedlist is not empty
-   * @param item
-   * @returns the length of the linkedlist
-   */
-  add(item: T): number {
-    const node = new LinkedNode(item)
-    if (!this.head) {
-      this.head = node
+  remove(data: T): boolean
+  remove(): INode<T>
+  remove(data?: any): boolean | INode<T> {
+    if (typeof data === 'undefined') {
     } else {
-      let current = this.head
-      while (current.next !== null) {
-        current = current.next
-      }
-      current.next = node
     }
-    this._length++
-    return this.size()
+    return false
   }
-
-  reverse() {
-    if (this.isEmpty() || this.size() === 1) {
-      return
+  reverse(): void {
+    let curr = this.head
+    let tail: LinkedNode<T> | null = null
+    while (curr) {
+      let prev = tail
+      tail = curr
+      curr = curr.next
+      tail.next = prev
     }
-    let current = this.head
-    let prev = null
-    let next = null
-    while (current !== null) {
-      next = current.next
-      current.next = prev
-      prev = current
-      current = next
-    }
-    this.head = prev // NOTE 头节点重置
+    this.head = tail
   }
-  indexOf(data: T): number {
-    if (this.isEmpty()) {
-      return -1
-    }
-    let current = this.head
-    let index = 0
-    while (current) {
-      index++
-      if (current.data === data) {
-        return index
-      }
-      current = current.next
-    }
-    return -1
-  }
-  // addAt(index: number, item: T): void {}
-  // getAt(index: number): Node<T> | null {
-  //   return null
-  // }
-  // remove(item:T):void{}
-  // removeAt(index:number):Node<T>|null{}
 }
