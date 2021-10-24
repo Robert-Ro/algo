@@ -143,9 +143,11 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
   remove(data: T): boolean
   remove(): INode<T>
-  remove(data?: any): boolean | INode<T> {
+  remove(data?: unknown): boolean | INode<T> {
     if (typeof data === 'undefined') {
+      // remove end node of linked-list
     } else {
+      // find the node and remove it
     }
     return false
   }
@@ -153,7 +155,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     let curr = this.head
     let tail: LinkedNode<T> | null = null
     while (curr) {
-      let prev = tail
+      const prev = tail
       tail = curr
       curr = curr.next
       tail.next = prev

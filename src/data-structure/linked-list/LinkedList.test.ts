@@ -29,16 +29,37 @@ describe('LinkedList tests', () => {
     expect(linkedList.size()).toEqual(3)
     expect(Array.from(linkedList.values())).toStrictEqual([1, 3, 2])
   })
-  it('reverse', () => {
-    const linkedList = new LinkedList()
-    linkedList.add(1)
-    linkedList.add(2)
-    linkedList.add(3)
-    linkedList.add(4)
-    linkedList.add(5)
-    linkedList.reverse()
-    expect(Array.from(linkedList.values())).toStrictEqual([5, 4, 3, 2, 1])
+  describe('reverse cases', () => {
+    it('case 1', () => {
+      const linkedList = new LinkedList()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.add(4)
+      linkedList.add(5)
+      linkedList.reverse()
+      expect(Array.from(linkedList.values())).toStrictEqual([5, 4, 3, 2, 1])
+    })
+    it('case 2', () => {
+      const linkedList = new LinkedList()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.reverse()
+      expect(Array.from(linkedList.values())).toStrictEqual([2, 1])
+    })
+    it('case 3', () => {
+      const linkedList = new LinkedList()
+      linkedList.add(1)
+      linkedList.reverse()
+      expect(Array.from(linkedList.values())).toStrictEqual([1])
+    })
+    it('case 4', () => {
+      const linkedList = new LinkedList()
+      linkedList.reverse()
+      expect(Array.from(linkedList.values())).toStrictEqual([])
+    })
   })
+
   // describe('indexOf', () => {
   //   it('should return the right index', () => {
   //     const linkedList = new LinkedList<number>()
