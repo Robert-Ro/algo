@@ -1,4 +1,4 @@
-import { LinkedList } from './LinkedList'
+import { LinkedList, LinkedNode } from './LinkedList'
 
 describe('LinkedList tests', () => {
   it('add', () => {
@@ -19,17 +19,19 @@ describe('LinkedList tests', () => {
     expect(linkedList.findByIndex(0)?.data).toEqual(1)
     expect(linkedList.findByIndex(1)?.data).toEqual(2)
     expect(linkedList.findByIndex(2)?.data).toEqual(3)
+    expect(linkedList.findByIndex(4)).toEqual(null)
+    expect(linkedList.findByIndex(-1)).toEqual(null)
   })
-  it('add at specified position', () => {
+  it('addAtIndex', () => {
     const linkedList = new LinkedList<number>()
     linkedList.add(1)
-    linkedList.add(2, 3) // 索引大于链表长度
+    linkedList.addAtIndex(2, 3) // 索引大于链表长度
     linkedList.add(3)
-    linkedList.add(2, 2)
+    linkedList.addAtIndex(2, 2)
     expect(linkedList.size()).toEqual(3)
     expect(Array.from(linkedList.values())).toStrictEqual([1, 3, 2])
   })
-  describe('reverse cases', () => {
+  describe('reverse test cases', () => {
     it('case 1', () => {
       const linkedList = new LinkedList()
       linkedList.add(1)
@@ -57,6 +59,146 @@ describe('LinkedList tests', () => {
       const linkedList = new LinkedList()
       linkedList.reverse()
       expect(Array.from(linkedList.values())).toStrictEqual([])
+    })
+  })
+  describe('deleteAtIndex test cases', () => {
+    it('case 1', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.add(4)
+      linkedList.deleteAtIndex(2)
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 2, 4])
+      linkedList.deleteAtIndex(4)
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 2, 4])
+      linkedList.deleteAtIndex(0)
+      expect(Array.from(linkedList.values())).toStrictEqual([2, 4])
+    })
+    it('case 2', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.deleteAtIndex(2)
+      expect(Array.from(linkedList.values())).toStrictEqual([1])
+    })
+    it('case 3', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.deleteAtIndex(2)
+      expect(Array.from(linkedList.values())).toStrictEqual([])
+      linkedList.deleteAtIndex(0)
+      expect(Array.from(linkedList.values())).toStrictEqual([])
+    })
+  })
+  describe('addAtIndex test cases', () => {
+    it('case 1：链表中间添加', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.addAtIndex(1, 1)
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 1, 2, 3])
+    })
+    it('case 2: 头部添加', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.addAtIndex(-1, 1)
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 1, 2, 3])
+      linkedList.addAtIndex(0, 3)
+      expect(Array.from(linkedList.values())).toStrictEqual([3, 1, 1, 2, 3])
+    })
+    it('case 3: 尾部添加', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.addAtIndex(3, 4) // 添加到尾部
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 2, 3, 4])
+    })
+    it('case 4: 超出链表长度添加', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.addAtIndex(7, 6) // 超出链表长度
+      expect(Array.from(linkedList.values())).toStrictEqual([1, 2, 3])
+    })
+  })
+  describe('leetcode test cases', () => {
+    it('case 1', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.addAtHead(1)
+      linkedList.addAtTail(3)
+      linkedList.addAtIndex(1, 2)
+      expect(linkedList.toArray()).toStrictEqual([1, 2, 3])
+      const node = linkedList.findByIndex(1)
+      expect(node?.data).toEqual(2)
+      linkedList.deleteAtIndex(0)
+      const node1 = linkedList.findByIndex(0)
+      expect(node1?.data).toEqual(2)
+    })
+  })
+  describe('findByValue', () => {
+    it('case 1', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      expect(linkedList.findByValue(2)).toStrictEqual(new LinkedNode(2, new LinkedNode(3)))
+    })
+  })
+  describe('remove test cases', () => {
+    const linkedList = new LinkedList<number>()
+    linkedList.add(1)
+    linkedList.add(2)
+    linkedList.add(3)
+    it('case 1: the value removed rightly', () => {
+      linkedList.remove(2)
+      expect(linkedList.toArray()).toStrictEqual([1, 3])
+    })
+    it('case 2: remove value not existed in linked-list should return null', () => {
+      expect(linkedList.remove(4)).toBeNull()
+    })
+    it('case 3: last item should be removed', () => {
+      expect(linkedList.remove()?.data).toEqual(3)
+      expect(linkedList.toArray()).toStrictEqual([1])
+      expect(linkedList.remove()?.data).toEqual(1)
+      expect(linkedList.toArray()).toStrictEqual([])
+    })
+    it('case 4: empty linked-list no item to removed', () => {
+      expect(linkedList.remove()).toBeNull()
+      expect(linkedList.toArray()).toStrictEqual([])
+    })
+  })
+  describe('map test cases', () => {
+    it('case 1', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.add(3)
+      linkedList.add(4)
+      linkedList.map((node) => new LinkedNode(node.data * 2))
+      expect(linkedList.toArray()).toStrictEqual([2, 4, 6, 8])
+    })
+    it('case 2', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.add(2)
+      linkedList.map((node) => new LinkedNode(node.data * 2))
+      expect(linkedList.toArray()).toStrictEqual([2, 4])
+    })
+    it('case 3', () => {
+      const linkedList = new LinkedList<number>()
+      linkedList.add(1)
+      linkedList.map((node) => new LinkedNode(node.data * 2))
+      expect(linkedList.toArray()).toStrictEqual([2])
+    })
+    it('case 4', () => {
+      expect(() => {
+        const linkedList = new LinkedList<number>()
+        linkedList.map((node) => new LinkedNode(node.data * 2))
+      }).toThrowError(new TypeError('linked list is empty'))
     })
   })
 
@@ -125,6 +267,6 @@ describe('LinkedList tests', () => {
   //   linkedList.add(4)
   //   linkedList.remove(2)
   //   linkedList.remove(4)
-  //   expect(Array.from(linkedList.values())).toMatchObject([1, 3])
+  //   expect(Array.from(linkedList.values())).toStrictEqual([1, 3])
   // })
 })

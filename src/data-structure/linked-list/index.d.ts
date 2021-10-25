@@ -21,12 +21,12 @@ declare interface ILinkedList<T> {
   //  * @param value
   //  */
   // create(value: T[]): ILinkedList<T>
-  // /**
-  //  * 生成一个新的链表
-  //  * @param fn
-  //  * @returns 头节点
-  //  */
-  // map(fn: (node: INode<T>, index: number) => INode<T>): INode<T>
+  /**
+   * 生成一个新的链表
+   * @param fn
+   * @returns 头节点
+   */
+  map(fn: (node: INode<T>, index: number) => INode<T>): INode<T>
   // /**
   //  * 截取生成一个新的链表
   //  * @param from
@@ -47,7 +47,7 @@ declare interface ILinkedList<T> {
    * 如果index小于0，则在头部插入节点
    * @param value
    */
-  add(value: T, index: number): boolean
+  addAtIndex(index: number, value: T): boolean
   /**
    * 在头部添加元素
    * @param value
@@ -72,7 +72,7 @@ declare interface ILinkedList<T> {
    */
   clear(): void
   /**
-   * 获取链表特定位置的节点
+   * 获取链表特定位置的节点，节点无效的话，返回-1
    * @param index
    */
   findByIndex(index: number): INode<T> | null
@@ -106,12 +106,13 @@ declare interface ILinkedList<T> {
    * @param data
    * @returns
    */
-  remove(data: T): boolean
+  remove(data: T): INode<T> | null
   /**
    * 移除链表的head节点
    * @throws {NoSuchElementError}
    */
-  remove(): INode<T>
+  remove(): INode<T> | null
+  pop(): INode<T> | null
   // /**
   //  * 查询链表中最先出的值为T的索引，若查询不到则返回-1。如果存在多个相同元素，则返回最小索引值
   //  * @param value
@@ -135,11 +136,11 @@ declare interface ILinkedList<T> {
    * 遍历链表返回一个迭代器
    */
   values(): Generator<T, void, undefined>
-  // /**
-  //  * 遍历链表
-  //  * @param fn
-  //  */
-  // traverse(fn: (INode: INode<T>) => void): void
+  /**
+   * 遍历链表
+   * @param fn
+   */
+  traverse(fn: (INode: INode<T>) => void): void
   // /**
   //  * 自定义搜索目标元素的节点索引
   //  * @param comparator

@@ -28,6 +28,15 @@ TODO
 
 ### 4.滑动窗口算法
 
+## 题型
+
+- [141.环形链表（简单）](https://leetcode-cn.com/problems/linked-list-cycle)
+- [142.环形链表 II（简单）](https://leetcode-cn.com/problems/linked-list-cycle-ii)
+- [167.两数之和 II - 输入有序数组（中等）](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted)
+- [344.反转字符串（简单）](https://leetcode-cn.com/problems/reverse-string/)
+- [19.删除链表倒数第 N 个元素（中等）](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list)
+- [876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
+
 ## Reference
 
 - [labuladong 算法思维系列：双指针技巧](https://github.com/labuladong/fucking-algorithm/blob/master/%E7%AE%97%E6%B3%95%E6%80%9D%E7%BB%B4%E7%B3%BB%E5%88%97/%E5%8F%8C%E6%8C%87%E9%92%88%E6%8A%80%E5%B7%A7.md)

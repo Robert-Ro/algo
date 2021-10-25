@@ -3,9 +3,9 @@ import { ILinkedList, INode } from '.'
 export class LinkedNode<T> implements INode<T> {
   data: T
   next: LinkedNode<T> | null
-  constructor(item: T) {
+  constructor(item: T, next?: LinkedNode<T>) {
     this.data = item
-    this.next = null
+    this.next = next || null
   }
   toString(): string {
     return `${this.data}`
@@ -37,8 +37,7 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
   findByValue(value: T): INode<T> | null {
     let curr = this.head
-    while (curr?.next) {
-      if (curr.next.data === value) return curr.next
+    while (curr?.next && curr.next.data != value) {
       curr = curr.next
     }
     return curr?.next || null
@@ -54,34 +53,32 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return true
   }
-  add(value: T): boolean
-  add(value: T, index: number): boolean
-  add(value: T, index?: unknown): boolean {
-    if (typeof index === 'number') {
-      const size = this.size()
-      if (index > size) return false
-      // 索引等于链表长度，尾部添加
-      if (index === size) return this.addAtTail(value)
-      // 索引小于0，在head处添加；索引等于0：链表长度等于0(无所谓头尾添加);链表长度>0(头部添加)
-      if (index <= 0) return this.addAtHead(value)
-      // 在链表中的第index个节点之前添加值为val的节点
-      let curr = this.head
-      let start = 0
-      const node: LinkedNode<T> = new LinkedNode(value)
-      while (curr && start <= index - 1) {
-        //找到index-1的节点
-        curr = curr.next
-        start++
-      }
-      if (curr) {
-        const _next = curr.next
-        curr.next = node
-        node.next = _next
-      }
-      return true
-    } else {
-      return this.addAtTail(value)
+  add(value: T): boolean {
+    return this.addAtTail(value)
+  }
+  addAtIndex(index: number, value: T): boolean {
+    const size = this.size()
+    // 超出链表长度
+    if (index > size) return false
+    // 索引等于链表长度，尾部添加
+    if (index === size) return this.addAtTail(value)
+    // 索引小于0，在head处添加；索引等于0：链表长度等于0(无所谓头尾添加);链表长度>0(头部添加)
+    if (index <= 0) return this.addAtHead(value)
+    // 在链表中的第index个节点**之前**添加值为val的节点
+    let curr = this.head
+    let start = 0
+    const node: LinkedNode<T> = new LinkedNode(value)
+    while (curr?.next && start !== index - 1) {
+      //找到index-1的节点
+      curr = curr.next
+      start++
     }
+    if (curr) {
+      const next = curr.next
+      curr.next = node
+      node.next = next
+    }
+    return true
   }
   addAtTail(value: T): boolean {
     const node: LinkedNode<T> = new LinkedNode(value)
@@ -125,31 +122,57 @@ export class LinkedList<T> implements ILinkedList<T> {
     let curr = this.head
     let start = 0
     if (index === 0) {
-      this.head = null
-      return curr
+      const _next = this.head?.next || null
+      this.head = _next
+      return this.head
     }
-    while (curr) {
+    const _head = this.head
+    // 非头节点
+    while (curr?.next && start !== index - 1) {
       curr = curr.next
       start++
-      if (start === index - 1) {
-        const _next = curr?.next
-        if (curr) {
-          curr.next = _next?.next || null
-          return _next || null
-        }
-      }
     }
-    return null
+    const _next = curr?.next?.next || null
+    if (curr) curr.next = _next
+    return _head
   }
-  remove(data: T): boolean
-  remove(): INode<T>
-  remove(data?: unknown): boolean | INode<T> {
-    if (typeof data === 'undefined') {
-      // remove end node of linked-list
-    } else {
-      // find the node and remove it
+  pop(): null | INode<T> {
+    if (!this.head) {
+      return null
     }
-    return false
+    if (!this.head?.next) {
+      const head = this.head
+      this.head = null
+      return head
+    }
+    let curr = this.head
+    while (curr?.next?.next) {
+      curr = curr.next
+    }
+    const last = curr?.next || null
+    if (curr && curr.next) {
+      curr.next = null
+    }
+    return last
+  }
+  remove(value: T): null | INode<T>
+  remove(): null | INode<T>
+  remove(value?: unknown): null | INode<T> {
+    if (typeof value === 'undefined') {
+      return this.pop()
+    } else {
+      let curr = this.head
+      while (curr?.next && curr.next.data !== value) {
+        curr = curr.next
+      }
+      if (curr) {
+        const nnext = curr?.next?.next || null
+        const next = curr.next
+        curr.next = nnext
+        return next
+      }
+      return null
+    }
   }
   reverse(): void {
     let curr = this.head
@@ -161,5 +184,30 @@ export class LinkedList<T> implements ILinkedList<T> {
       tail.next = prev
     }
     this.head = tail
+  }
+  traverse(fn: (INode: INode<T>) => void): void {
+    let curr = this.head
+    while (curr) {
+      fn(curr)
+      curr = curr.next
+    }
+  }
+  map(fn: (node: INode<T>, index: number) => INode<T>): INode<T> {
+    if (!this.head) {
+      throw TypeError('linked list is empty')
+    }
+    let curr: LinkedNode<T> | null = this.head
+    let rev = new LinkedNode<T>(curr.data)
+    const sentry = rev // 哨兵节点
+    let start = 0
+    while (curr) {
+      const mapedValue = fn(curr, start)
+      rev.next = mapedValue
+      rev = mapedValue
+      start++
+      curr = curr.next
+    }
+    this.head = sentry.next!
+    return this.head
   }
 }
