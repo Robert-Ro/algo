@@ -18,14 +18,17 @@ export class LinkedNode<T> implements INode<T> {
 export class LinkedList<T> implements ILinkedList<T> {
   head: LinkedNode<T> | null
   tail: LinkedNode<T> | null
-  static create<T>(data: T[]) {
-    const ll = new LinkedList()
+  static create<T>(data: T[]): LinkedList<T> {
+    const ll = new LinkedList<T>()
     ll.addAllAtTail(data)
     return ll
   }
   constructor() {
     this.head = null
     this.tail = null
+  }
+  setHead(node: INode<T>): void {
+    this.head = node
   }
   clear(): void {
     this.head = null

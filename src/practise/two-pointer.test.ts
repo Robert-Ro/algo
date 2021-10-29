@@ -1,4 +1,7 @@
+import { LinkedList } from '@/data-structure/linked-list/LinkedList'
 import {
+  detectCycle,
+  hasCycle,
   ListNode,
   middleNode,
   middleNode2,
@@ -105,59 +108,91 @@ describe('two pointer test cases', () => {
     it('case 1', () => {
       const listnode = new ListNode(
         1,
-        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
       )
-      expect(middleNode(listnode)).toStrictEqual(
-        new ListNode(3, new ListNode(4, new ListNode(5, null)))
-      )
-      expect(middleNode2(listnode)).toStrictEqual(
-        new ListNode(3, new ListNode(4, new ListNode(5, null)))
-      )
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(3, new ListNode(4, new ListNode(5))))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(3, new ListNode(4, new ListNode(5))))
     })
     it('case 2', () => {
       const listnode = new ListNode(
         1,
-        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6, null)))))
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6)))))
       )
-      expect(middleNode(listnode)).toStrictEqual(
-        new ListNode(4, new ListNode(5, new ListNode(6, null)))
-      )
-      expect(middleNode2(listnode)).toStrictEqual(
-        new ListNode(4, new ListNode(5, new ListNode(6, null)))
-      )
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(4, new ListNode(5, new ListNode(6))))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(4, new ListNode(5, new ListNode(6))))
     })
     it('case 3', () => {
-      const listnode = new ListNode(1, null)
-      expect(middleNode(listnode)).toStrictEqual(new ListNode(1, null))
-      expect(middleNode2(listnode)).toStrictEqual(new ListNode(1, null))
+      const listnode = new ListNode(1)
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(1))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(1))
     })
     it('case 4', () => {
-      const listnode = new ListNode(1, new ListNode(2, null))
-      expect(middleNode(listnode)).toStrictEqual(new ListNode(2, null))
-      expect(middleNode2(listnode)).toStrictEqual(new ListNode(2, null))
+      const listnode = new ListNode(1, new ListNode(2))
+      expect(middleNode(listnode)).toStrictEqual(new ListNode(2))
+      expect(middleNode2(listnode)).toStrictEqual(new ListNode(2))
     })
   })
   describe('leetcode 19. 删除链表的倒数第N个结点', () => {
     it('case 1', () => {
       const listnode = new ListNode(
         1,
-        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))
+        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
       )
       expect(removeNthFromEnd(listnode, 2)).toStrictEqual(
-        new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5, null))))
+        new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5))))
       )
     })
     it('case 2', () => {
-      const listnode = new ListNode(1, null)
+      const listnode = new ListNode(1)
       expect(removeNthFromEnd(listnode, 1)).toStrictEqual(null)
     })
     it('case 3', () => {
-      const listnode = new ListNode(1, new ListNode(2, null))
-      expect(removeNthFromEnd(listnode, 1)).toStrictEqual(new ListNode(1, null))
+      const listnode = new ListNode(1, new ListNode(2))
+      expect(removeNthFromEnd(listnode, 1)).toStrictEqual(new ListNode(1))
     })
     it('case 4', () => {
-      const listnode = new ListNode(1, new ListNode(2, null))
-      expect(removeNthFromEnd(listnode, 2)).toStrictEqual(new ListNode(2, null))
+      const listnode = new ListNode(1, new ListNode(2))
+      expect(removeNthFromEnd(listnode, 2)).toStrictEqual(new ListNode(2))
+    })
+  })
+  describe('leetcode 141. 环形链表', () => {
+    const node1 = new ListNode(1)
+    const node2 = new ListNode(2)
+    const node3 = new ListNode(3)
+    const node4 = new ListNode(4)
+    const node5 = new ListNode(5)
+    const node6 = new ListNode(6)
+    node1.next = node2
+    node2.next = node3
+    node3.next = node4
+    node4.next = node5
+    node5.next = node6
+    node6.next = node3
+    expect(hasCycle(node1)).toBeTruthy()
+  })
+  describe('leetcode 142. 环形链表 II', () => {
+    it('case 1', () => {
+      const node1 = new ListNode(1)
+      const node2 = new ListNode(2)
+      const node3 = new ListNode(3)
+      const node4 = new ListNode(4)
+      const node5 = new ListNode(5)
+      const node6 = new ListNode(6)
+      node1.next = node2
+      node2.next = node3
+      node3.next = node4
+      node4.next = node5
+      node5.next = node6
+      node6.next = node3
+      expect(detectCycle(node1)?.data).toEqual(3)
+    })
+    it('case 2', () => {
+      const ll = LinkedList.create<number>([1, 2])
+      expect(detectCycle(ll.head)?.data).toBeUndefined()
+    })
+    it('case 3', () => {
+      const ll = LinkedList.create<number>([1])
+      expect(detectCycle(ll.head)?.data).toBeUndefined()
     })
   })
 })

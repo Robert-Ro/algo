@@ -139,7 +139,7 @@ describe('LinkedList tests', () => {
   })
   describe('map test cases', () => {
     it('case 1', () => {
-      const linkedList = LinkedList.create<number>([1, 2, 3, 4]) as LinkedList<number>
+      const linkedList = LinkedList.create<number>([1, 2, 3, 4])
       linkedList.map((node) => new LinkedNode(node.data * 2))
       expect(linkedList.toArray()).toStrictEqual([2, 4, 6, 8])
     })

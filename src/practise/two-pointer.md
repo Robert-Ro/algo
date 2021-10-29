@@ -2,9 +2,25 @@
 
 双指针问题分为两类：一类是[快慢指针]，一类是[左右指针]，前者主要解决链表中的问题，比如典型的判定链表中包含环，后者主要解决数组(或者字符串)中的问题，比如二分查找
 
+- 快慢指针最神奇，链表操作无压力。归并排序**找中点**，**链表成环**搞判定。
+- 左右指针最常见，左右两端相向行。**反转数组**要靠它，**二分搜索**是弟弟。
+- 滑动窗口老猛男，**子串**问题全靠它。左右指针滑窗口，一前一后齐头进。
+
 ## 快慢指针的常见算法
 
-TODO
+### 1. 判定链表中是否含有环
+
+[examples](./two-pointer.ts#L272)
+
+### 2、已知链表中含有环，返回这个环的起始位置
+
+> 画图辅助
+
+- 第一次相遇时，假设慢指针 `slow` 走了 `k` 步，那么快指针 `fast` 一定走了 `2k` 步：![](../../assets/images/linked-list/3.jpeg)
+- `fast` 一定比 `slow` 多走了 `k` 步，这多走的 `k` 步其实就是 `fast` 指针在环里转圈圈，所以 `k` 的值就是环长度的「**整数倍**」
+  > 我们想一想极端情况，假设环长度就是 1 ![](../../assets/images/linked-list/4.jpeg)
+- 设相遇点距环的起点的距离为 `m`，那么环的起点距头结点 `head` 的距离为 `k - m`，也就是说如果从 `head` 前进 `k - m` 步就能到达环起点。如果从相遇点继续前进 `k - m` 步，也恰好到达环起点。你甭管 `fast` 在环里到底转了几圈，反正走 `k` 步可以到相遇点，那走 `k - m` 步一定就是走到环起点了：![](../../assets/images/linked-list/2.jpeg)
+- 只要我们把快慢指针中的任一个重新指向 `head`，然后两个指针同速前进，`k - m` 步后就会相遇，相遇之处就是环的起点了
 
 ## 左右指针的常用算法
 
@@ -28,14 +44,7 @@ TODO
 
 ### 4.滑动窗口算法
 
-## 题型
-
-- [141.环形链表（简单）](https://leetcode-cn.com/problems/linked-list-cycle)
-- [142.环形链表 II（简单）](https://leetcode-cn.com/problems/linked-list-cycle-ii)
-- [167.两数之和 II - 输入有序数组（中等）](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted)
-- [344.反转字符串（简单）](https://leetcode-cn.com/problems/reverse-string/)
-- [19.删除链表倒数第 N 个元素（中等）](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list)
-- [876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
+## 滑动窗口
 
 ## Reference
 

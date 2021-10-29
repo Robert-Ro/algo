@@ -158,6 +158,7 @@ declare interface ILinkedList<T> {
    * 反转链表
    */
   reverse(): void
+  setHead(node: INode<T>): void
 }
 
 export type InvalidArgumentError = Error
