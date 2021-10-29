@@ -27,14 +27,14 @@ declare interface ILinkedList<T> {
    * @returns 头节点
    */
   map(fn: (node: INode<T>, index: number) => INode<T>): INode<T>
-  // /**
-  //  * 截取生成一个新的链表
-  //  * @param from
-  //  * @param to
-  //  * @throws {IndexOutOfBoundsError}
-  //  * @returns 头节点
-  //  */
-  // slice(from: number, to?: number): INode<T>
+  /**
+   * 截取生成一个新的链表
+   * @param from
+   * @param to
+   * @throws {IndexOutOfBoundsError}
+   * @returns 头节点
+   */
+  slice(from: number, to?: number): INode<T>
   /**
    * 添加特定元素到链表尾部
    * @param value
@@ -53,26 +53,25 @@ declare interface ILinkedList<T> {
    * @param value
    */
   addAtHead(value: T): boolean
-  // /**
-  //  * 添加多个元素集合到链表尾部。如果集合不存在则抛出错误
-  //  * @param data
-  //  * @throws {InvalidArgumentError} 元素集合不能为空
-  //  */
-  // addAll(data: T[]): boolean
-  // /**
-  //  * 在索引index处添加多个元素到链表尾部
-  //  * @param index
-  //  * @param data
-  //  * @throws {InvalidArgumentError} 元素集合不能为空
-  //  * @throws {IndexOutOfBoundsError} 索引超出链表大小范围
-  //  */
-  // addAll(index: number, data: T[]): boolean
+  /**
+   * 添加多个元素集合到链表尾部。如果集合不存在则抛出错误
+   * @param data
+   * @throws 元素集合不能为空
+   */
+  addAllAtTail(data: T[]): void
+  /**
+   * 在索引index处添加多个元素到链表尾部
+   * @param index
+   * @param data
+   * @throws 元素集合不能为空
+   */
+  addAll(index: number, data: T[]): void
   /**
    * 清空整个链表
    */
   clear(): void
   /**
-   * 获取链表特定位置的节点，节点无效的话，返回-1
+   * 获取链表特定位置的节点，节点无效的话，返回null
    * @param index
    */
   findByIndex(index: number): INode<T> | null
@@ -82,20 +81,19 @@ declare interface ILinkedList<T> {
    */
   findByValue(value: T): INode<T> | null
 
-  // /**
-  //  * 使用value替换链表中特定位置的值
-  //  * @param index
-  //  * @param value
-  //  * @throws {IndexOutOfBoundsError}
-  //  */
-  // set(index: number, value: T): INode<T>
-  // /**
-  //  * 替换链表中特定位置的值
-  //  * @param index
-  //  * @param value
-  //  * @throws {NoSuchElementError}
-  //  */
-  // set(value: T): INode<T>
+  /**
+   * 使用value替换链表中特定位置的值
+   * @param index
+   * @param value
+   * @throws {IndexOutOfBoundsError}
+   */
+  replaceAtIndex(index: number, value: T): INode<T>
+  /**
+   * 替换链表中特定位置的值
+   * @param oldValue
+   * @param newValue
+   */
+  replace(oldValue: T, newValue: T): INode<T>
   /**
    * 删除链表中特定位置的元素
    * @param index
@@ -113,16 +111,16 @@ declare interface ILinkedList<T> {
    */
   remove(): INode<T> | null
   pop(): INode<T> | null
-  // /**
-  //  * 查询链表中最先出的值为T的索引，若查询不到则返回-1。如果存在多个相同元素，则返回最小索引值
-  //  * @param value
-  //  */
-  // indexOf(value: T): number
-  // /**
-  //  * 查询链表中最后出的值为T的索引，若查询不到则返回-1。如果存在多个相同元素，则返回最大索引值
-  //  * @param value
-  //  */
-  // lastIndexOf(value: T): number
+  /**
+   * 查询链表中最先出的值为T的索引，若查询不到则返回-1。如果存在多个相同元素，则返回最小索引值
+   * @param value
+   */
+  indexOf(value: T): number
+  /**
+   * 查询链表中最后出的值为T的索引，若查询不到则返回-1。如果存在多个相同元素，则返回最大索引值
+   * @param value
+   */
+  lastIndexOf(value: T): number
   /**
    * 获取链表head节点
    * @returns head节点
@@ -141,11 +139,6 @@ declare interface ILinkedList<T> {
    * @param fn
    */
   traverse(fn: (INode: INode<T>) => void): void
-  // /**
-  //  * 自定义搜索目标元素的节点索引
-  //  * @param comparator
-  //  */
-  // search(comparator: (data: T) => boolean): number
   /**
    * 链表转数组
    */
@@ -154,13 +147,13 @@ declare interface ILinkedList<T> {
    * 链表是否为空
    */
   isEmpty(): boolean
-  // /**
-  //  * 交换两个索引对应的节点
-  //  * @param a
-  //  * @param b
-  //  * @throws {IndexOutOfBoundsError}
-  //  */
-  // swap(a: number, b: number): void
+  /**
+   * 交换两个索引对应的节点
+   * @param a 索引a
+   * @param b 索引b
+   * @throws {IndexOutOfBoundsError}
+   */
+  swap(a: number, b: number): void
   /**
    * 反转链表
    */

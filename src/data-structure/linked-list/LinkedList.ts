@@ -18,11 +18,15 @@ export class LinkedNode<T> implements INode<T> {
 export class LinkedList<T> implements ILinkedList<T> {
   head: LinkedNode<T> | null
   tail: LinkedNode<T> | null
+  static create<T>(data: T[]) {
+    const ll = new LinkedList()
+    ll.addAllAtTail(data)
+    return ll
+  }
   constructor() {
     this.head = null
     this.tail = null
   }
-
   clear(): void {
     this.head = null
   }
@@ -174,16 +178,20 @@ export class LinkedList<T> implements ILinkedList<T> {
       return null
     }
   }
+  /**
+   * 反转链表
+   * 两个节点指针，一个指向未访问的，一个指向已访问的
+   */
   reverse(): void {
     let curr = this.head
-    let tail: LinkedNode<T> | null = null
+    let reversing: LinkedNode<T> | null = null
     while (curr) {
-      const prev = tail
-      tail = curr
+      const readed = reversing
+      reversing = curr
       curr = curr.next
-      tail.next = prev
+      reversing.next = readed
     }
-    this.head = tail
+    this.head = reversing
   }
   traverse(fn: (INode: INode<T>) => void): void {
     let curr = this.head
@@ -207,7 +215,109 @@ export class LinkedList<T> implements ILinkedList<T> {
       start++
       curr = curr.next
     }
-    this.head = sentry.next!
+    if (sentry.next) this.head = sentry.next
     return this.head
+  }
+  indexOf(value: T): number {
+    let curr = this.head
+    let start = 0
+    while (curr) {
+      if (curr.data === value) {
+        return start
+      }
+      start++
+      curr = curr.next
+    }
+    return -1
+  }
+  lastIndexOf(value: T): number {
+    this.reverse()
+    return this.indexOf(value)
+  }
+  addAll(index: number, data: T[]): void {
+    if (data.length === 0) {
+      throw new TypeError('插入数组不能为空')
+    }
+    let start = 0
+    let curr = this.head
+    if (!curr) {
+      // 链表为空
+      data?.forEach((item: T) => this.add(item))
+    }
+    while (curr?.next && start !== index) {
+      curr = curr.next
+      start++
+    }
+    if (curr) {
+      data?.forEach((item: T, i) => this.addAtIndex(i + 1 + index, item))
+    }
+  }
+  addAllAtTail(data: T[]): void {
+    if (data.length === 0) {
+      throw new TypeError('插入数组不能为空')
+    }
+    data.forEach((item: T) => this.addAtTail(item))
+  }
+  replace(oldValue: T, newValue: T): INode<T> {
+    if (!this.head) {
+      throw TypeError("linkedList head can't be null")
+    }
+    let curr: INode<T> | null = this.head
+    if (this.size() === 1) {
+      if (this.head.data === oldValue) {
+        this.head.data = newValue
+      }
+    }
+    while (curr && curr.next?.data !== oldValue) {
+      curr = curr.next
+    }
+    if (curr && curr.next) {
+      const nnext = curr.next.next
+      curr.next = new LinkedNode(newValue)
+      curr.next.next = nnext
+    }
+    return this.head
+  }
+  replaceAtIndex(index: number, value: T): INode<T> {
+    if (!this.head) {
+      throw TypeError("linkedList head can't be null")
+    }
+    const node = this.findByIndex(index)
+    if (node) {
+      node.data = value
+    }
+    return this.head
+  }
+  swap(a: number, b: number): void {
+    const nodea = this.findByIndex(a)
+    const nodeb = this.findByIndex(b)
+    if (!nodea || !nodeb) {
+      throw TypeError('unvalid index')
+    }
+    const va = nodea.data
+    const vb = nodeb.data
+    nodea.data = vb
+    nodeb.data = va
+  }
+  slice(from: number, to?: number): INode<T> {
+    if (from < 0) {
+      throw TypeError('from point must biger than 0')
+    }
+    if (to && from >= to) {
+      throw TypeError('from point must smaller than to point')
+    }
+    const fromNode = this.findByIndex(from)
+    if (!fromNode) {
+      throw TypeError('from node not existed in the linked list')
+    }
+
+    if (to) {
+      const toNode = this.findByIndex(to)
+      if (toNode?.next) {
+        toNode.next = null
+      }
+    }
+    this.head = fromNode
+    return fromNode
   }
 }
