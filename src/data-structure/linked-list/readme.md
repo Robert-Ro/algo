@@ -39,6 +39,7 @@ while (curr.next != null) {}
 3. 两个有序的链表合并：21
 4. 删除链表倒数第 n 个结点：19
 5. 求链表的中间结点：876
+6. 奇偶链表：328，参考画图辅助(![](../../../assets/images/linked-list/odd-even-linked-list.png))
 
 ### 应用题
 
