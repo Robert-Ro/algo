@@ -1,4 +1,3 @@
-import { LinkedList } from '../data-structure/linked-list/LinkedList'
 import { ListNode } from './two-pointer'
 
 /**
@@ -47,3 +46,13 @@ export function mergeTwoLists2(l1: ListNode | null, l2: ListNode | null): ListNo
     return l1
   }
 }
+/**
+ * 相交链表
+ *
+ * @param headA
+ * @param headB
+ */
+export function getIntersectionNode(
+  headA: ListNode | null,
+  headB: ListNode | null
+): ListNode | null {}

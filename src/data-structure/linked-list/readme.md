@@ -14,6 +14,10 @@ while (curr.next != null) {}
 
 ## Tips
 
+### 辅助点
+
+- [哑节点](https://en.wikipedia.org/wiki/Linked_list#Sentinel_nodes)
+
 ### 思路
 
 - 问题简单化

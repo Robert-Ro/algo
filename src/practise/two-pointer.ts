@@ -1,4 +1,4 @@
-import { LinkedNode } from '../data-structure/linked-list/LinkedList'
+import { LinkedNode } from '../data-structure/linked-list/SinglyLinkedList'
 
 /**
  * 旋转数组

@@ -15,11 +15,11 @@ export class LinkedNode<T> implements INode<T> {
  * 链表
  * 索引起始位置0
  */
-export class LinkedList<T> implements ILinkedList<T> {
+export class SinglyLinkedList<T> implements ILinkedList<T> {
   head: LinkedNode<T> | null
   tail: LinkedNode<T> | null
-  static create<T>(data: T[]): LinkedList<T> {
-    const ll = new LinkedList<T>()
+  static create<T>(data: T[]): SinglyLinkedList<T> {
+    const ll = new SinglyLinkedList<T>()
     ll.addAllAtTail(data)
     return ll
   }

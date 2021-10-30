@@ -1,4 +1,4 @@
-import { LinkedList } from '@/data-structure/linked-list/LinkedList'
+import { SinglyLinkedList } from '@/data-structure/linked-list/SinglyLinkedList'
 import {
   detectCycle,
   hasCycle,
@@ -187,11 +187,11 @@ describe('two pointer test cases', () => {
       expect(detectCycle(node1)?.data).toEqual(3)
     })
     it('case 2', () => {
-      const ll = LinkedList.create<number>([1, 2])
+      const ll = SinglyLinkedList.create<number>([1, 2])
       expect(detectCycle(ll.head)?.data).toBeUndefined()
     })
     it('case 3', () => {
-      const ll = LinkedList.create<number>([1])
+      const ll = SinglyLinkedList.create<number>([1])
       expect(detectCycle(ll.head)?.data).toBeUndefined()
     })
   })

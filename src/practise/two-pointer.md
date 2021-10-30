@@ -50,3 +50,5 @@
 
 - [labuladong 算法思维系列：双指针技巧](https://github.com/labuladong/fucking-algorithm/blob/master/%E7%AE%97%E6%B3%95%E6%80%9D%E7%BB%B4%E7%B3%BB%E5%88%97/%E5%8F%8C%E6%8C%87%E9%92%88%E6%8A%80%E5%B7%A7.md)
 - [双指针技巧总结](https://labuladong.github.io/algo/2/19/50/)
+- [Cycle detection](https://en.wikipedia.org/wiki/Cycle_detection)
+- [Floyd 判圈算法](https://zh.wikipedia.org/wiki/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95)
