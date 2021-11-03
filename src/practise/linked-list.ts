@@ -122,7 +122,7 @@ export function oddEvenList(head: ListNode | null): ListNode | null {
   if (head === null) {
     return null
   }
-  let evenHead = head.next
+  const evenHead = head.next
   let odd = head
   let even = evenHead
   while (even && even.next !== null) {
@@ -159,4 +159,68 @@ export function isPalindrome(head: ListNode | null): boolean {
     fast = fast.next
   }
   return false
+}
+
+/**
+ * 连续空间问题
+ * @param head
+ * @returns
+ */
+export function continuousSpace(
+  head: ListNode,
+  compare: (a: number, b: number) => boolean
+): number[][] {
+  let slow: ListNode | null = head
+  let fast: ListNode | null = head?.next
+  const result: number[][] = []
+  let paritial: number[] = [slow.data]
+  while (fast) {
+    if (compare(fast.data, slow!.data)) {
+      paritial.push(fast.data)
+      slow = slow?.next || null
+      fast = fast.next
+    } else {
+      result.push(paritial)
+      slow = fast
+      paritial = [slow.data]
+      fast = fast.next
+    }
+  }
+  result.push(paritial)
+  return result
+}
+/**
+ * 将48位的时间位图格式化成字符串
+ * @param input
+ * @returns
+ */
+export function timeBitmapToRanges(input: string): string[] {
+  const nums: number[] = input.split('').map((v) => parseInt(v, 10))
+  const ll = SinglyLinkedList.create<number>(nums)
+  const result = continuousSpace(ll.head!, (a, b) => a - b === 0)
+  return result
+    .reduce(
+      (prev: [string[], number], curr: number[]) => {
+        const res = number2time(curr, prev[1])
+        prev[0].push(res)
+        prev[1] = prev[1] + curr.length
+        return prev
+      },
+      [[], 0]
+    )[0]
+    .filter(Boolean)
+}
+function number2time(nums: number[], index: number): string {
+  if (nums.every((num) => num === 1)) {
+    const start = index2string(index)
+    const end = nums.length >= 2 ? index2string(index + nums.length) : index2string(index + 1)
+    return `${start}~${end}`
+  }
+  return ''
+}
+
+function index2string(index: number): string {
+  return index % 2 === 0
+    ? `${`${index / 2}`.padStart(2, '0')}:00`
+    : `${`${Math.floor(index / 2)}`.padStart(2, '0')}:30`
 }

@@ -7,6 +7,8 @@ import {
   removeElements,
   oddEvenList,
   isPalindrome,
+  continuousSpace,
+  timeBitmapToRanges,
 } from './linked-list'
 
 describe('链表刷题', () => {
@@ -102,6 +104,59 @@ describe('链表刷题', () => {
     it('case 3', () => {
       const ll = SinglyLinkedList.create<number>([1, 2, 3, 3, 2, 1])
       // expect(isPalindrome(ll.head)).toBe(true)
+    })
+  })
+  describe('连续空间', () => {
+    describe('数字连续', () => {
+      it('case 1', () => {
+        const ll = SinglyLinkedList.create<number>([1, 2, 3, 5, 7, 8, 10])
+        expect(continuousSpace(ll.head!, (a, b) => a - b === 1)).toStrictEqual([
+          [1, 2, 3],
+          [5],
+          [7, 8],
+          [10],
+        ])
+      })
+      it('case 2', () => {
+        const ll = SinglyLinkedList.create<number>([1, 2])
+        expect(continuousSpace(ll.head!, (a, b) => a - b === 1)).toStrictEqual([[1, 2]])
+      })
+      it('case 3', () => {
+        const ll = SinglyLinkedList.create<number>([1])
+        expect(continuousSpace(ll.head!, (a, b) => a - b === 1)).toStrictEqual([[1]])
+      })
+      it('case 4', () => {
+        const ll = SinglyLinkedList.create<number>([1, 2, 3, 5, 7, 8, 10, 11, 12, 15, 16])
+        expect(continuousSpace(ll.head!, (a, b) => a - b === 1)).toStrictEqual([
+          [1, 2, 3],
+          [5],
+          [7, 8],
+          [10, 11, 12],
+          [15, 16],
+        ])
+      })
+    })
+    describe('时间位图问题', () => {
+      it('case 1', () => {
+        expect(
+          timeBitmapToRanges('110000000000000000000000000000000000000000000000')
+        ).toStrictEqual(['00:00~01:00'])
+      })
+      it('case 2', () => {
+        expect(
+          timeBitmapToRanges('110010000000000000000000000000000000000000000000')
+        ).toStrictEqual(['00:00~01:00', '02:00~02:30'])
+      })
+      it('case 3', () => {
+        expect(
+          timeBitmapToRanges('110011000000000000000000000000000000000000000000')
+        ).toStrictEqual(['00:00~01:00', '02:00~03:00'])
+      })
+      it('case 4', () => {
+        expect(
+          timeBitmapToRanges('110011000010000000000000000000000000000000000000')
+        ).toStrictEqual(['00:00~01:00', '02:00~03:00', '05:00~05:30'])
+      })
     })
   })
 })
