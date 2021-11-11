@@ -9,6 +9,9 @@ import {
   isPalindrome,
   continuousSpace,
   timeBitmapToRanges,
+  addTwoNumbers2,
+  addTwoNumbers,
+  rotateRight,
 } from './linked-list'
 
 describe('链表刷题', () => {
@@ -157,6 +160,109 @@ describe('链表刷题', () => {
           timeBitmapToRanges('110011000010000000000000000000000000000000000000')
         ).toStrictEqual(['00:00~01:00', '02:00~03:00', '05:00~05:30'])
       })
+    })
+  })
+  describe('两数相加', () => {
+    it('case 1', () => {
+      const l1 = SinglyLinkedList.create([2, 4, 3])
+      const l2 = SinglyLinkedList.create([5, 6, 4])
+      const head = addTwoNumbers2(l1.head, l2.head)
+      const s = new SinglyLinkedList()
+      if (head) {
+        s.setHead(head)
+        expect(s.toArray()).toStrictEqual([7, 0, 8])
+      }
+    })
+    it('case 2', () => {
+      const l1 = SinglyLinkedList.create([0])
+      const l2 = SinglyLinkedList.create([0])
+      const head = addTwoNumbers2(l1.head, l2.head)
+      const s = new SinglyLinkedList()
+      if (head) {
+        s.setHead(head)
+        expect(s.toArray()).toStrictEqual([0])
+      }
+    })
+    it('case 3', () => {
+      const l1 = SinglyLinkedList.create([9, 9, 9, 9, 9, 9, 9])
+      const l2 = SinglyLinkedList.create([9, 9, 9, 9])
+      const head = addTwoNumbers2(l1.head, l2.head)
+      const s = new SinglyLinkedList()
+      if (head) {
+        s.setHead(head)
+        expect(s.toArray()).toStrictEqual([8, 9, 9, 9, 0, 0, 0, 1])
+      }
+      // solution 2
+      const head2 = addTwoNumbers(l1.head, l2.head)
+      const s2 = new SinglyLinkedList()
+      if (head2) {
+        s2.setHead(head2)
+        expect(s2.toArray()).toStrictEqual([8, 9, 9, 9, 0, 0, 0, 1])
+      }
+    })
+    it('case 4', () => {
+      const l1 = SinglyLinkedList.create([0, 8, 8, 8, 8, 2, 9, 3, 1, 1])
+      const l2 = SinglyLinkedList.create([0, 9, 1, 5, 5, 5, 1, 1, 6])
+      const head = addTwoNumbers2(l1.head, l2.head)
+      const s = new SinglyLinkedList()
+      if (head) {
+        s.setHead(head)
+        expect(s.toArray()).toStrictEqual([0, 7, 0, 4, 4, 8, 0, 5, 7, 1])
+      }
+      // solution 2
+      const head2 = addTwoNumbers2(l1.head, l2.head)
+      const s2 = new SinglyLinkedList()
+      if (head2) {
+        s2.setHead(head2)
+        expect(s2.toArray()).toStrictEqual([0, 7, 0, 4, 4, 8, 0, 5, 7, 1])
+      }
+    })
+    it('case 5', () => {
+      const l1 = SinglyLinkedList.create([
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      ])
+      const l2 = SinglyLinkedList.create([5, 6, 4])
+      const head = addTwoNumbers(l1.head, l2.head)
+      const s = new SinglyLinkedList()
+      if (head) {
+        s.setHead(head)
+        expect(s.toArray()).toStrictEqual([
+          6, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          1,
+        ])
+      }
+    })
+  })
+  describe('旋转链表', () => {
+    it('case 1', () => {
+      const ll = SinglyLinkedList.create<number>([1, 2, 3, 4, 5])
+      const head = rotateRight(ll.head, 2)
+      head && ll.setHead(head)
+      expect(ll.toArray()).toStrictEqual([4, 5, 1, 2, 3])
+    })
+    it('case 2', () => {
+      const ll = SinglyLinkedList.create<number>([0, 1, 2])
+      const head = rotateRight(ll.head, 4)
+      head && ll.setHead(head)
+      expect(ll.toArray()).toStrictEqual([2, 0, 1])
+    })
+    it('case 3', () => {
+      const ll = SinglyLinkedList.create<number>([1, 2])
+      const head = rotateRight(ll.head, 1)
+      head && ll.setHead(head)
+      expect(ll.toArray()).toStrictEqual([2, 1])
+    })
+    it('case 4', () => {
+      const ll = SinglyLinkedList.create<number>([1, 2])
+      const head = rotateRight(ll.head, 2)
+      head && ll.setHead(head)
+      expect(ll.toArray()).toStrictEqual([1, 2])
+    })
+    it('case 5', () => {
+      const ll = SinglyLinkedList.create<number>([1])
+      const head = rotateRight(ll.head, 99)
+      head && ll.setHead(head)
+      expect(ll.toArray()).toStrictEqual([1])
     })
   })
 })

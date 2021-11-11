@@ -1,4 +1,4 @@
-import { SinglyLinkedList } from '../data-structure/linked-list/SinglyLinkedList'
+import { LinkedNode, SinglyLinkedList } from '../data-structure/linked-list/SinglyLinkedList'
 import { ListNode } from './two-pointer'
 
 /**
@@ -223,4 +223,188 @@ function index2string(index: number): string {
   return index % 2 === 0
     ? `${`${index / 2}`.padStart(2, '0')}:00`
     : `${`${Math.floor(index / 2)}`.padStart(2, '0')}:30`
+}
+/**
+ * 两数相加
+ * @
+ * 给你两个 非空 的链表，表示两个非负的整数。
+ * 它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+ * @param l1
+ * @param l2
+ */
+export function addTwoNumbers2(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  // 请你将两个数相加，并以相同形式返回一个表示和的链表。
+  // 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+  if (!l1) return l2
+  if (!l2) return l1
+  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) {
+    return l1
+  }
+  const getTotal = (l1: ListNode): number => {
+    let int = 0
+    let head: ListNode | null = l1
+    let d = 1
+    while (head) {
+      int += head.data * d
+      head = head.next
+      d = d * 10
+    }
+    return int
+  }
+  const total = getTotal(l1) + getTotal(l2)
+  const totalStr = new Number(`${total}`).toLocaleString().replace(/,/g, '').split('')
+  const dumpNode = new ListNode(-1)
+  let head = dumpNode
+  while (totalStr.length) {
+    const prev = head
+    const t = totalStr.pop()
+    if (t) {
+      head = new ListNode(+t)
+      prev.next = head
+    }
+  }
+  return dumpNode.next
+}
+/**
+ * 两数相加
+ * @
+ * 给你两个 非空 的链表，表示两个非负的整数。
+ * 它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+ * @param l1
+ * @param l2
+ */
+export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  if (!l1) return l2
+  if (!l2) return l1
+  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) {
+    return l1
+  }
+  const dumpNode = new ListNode(-1)
+  let head = dumpNode
+  let extra = 0
+  while (l1 && l2) {
+    const prev = head
+    let t = l1.data + l2.data + extra
+    extra = 0
+    if (t >= 10) {
+      t = t % 10
+      extra = 1
+    }
+    head = new ListNode(t)
+    l1 = l1.next
+    l2 = l2.next
+    prev.next = head
+  }
+  // TODO 简化
+  if (!l2) {
+    while (l1) {
+      const prev = head
+      let t = l1.data + extra
+      extra = 0
+      if (t >= 10) {
+        t = t % 10
+        extra = 1
+      }
+      head = new ListNode(t)
+      l1 = l1.next
+      prev.next = head
+    }
+  }
+  if (!l1) {
+    while (l2) {
+      const prev = head
+      let t = l2.data + extra
+      extra = 0
+      if (t >= 10) {
+        t = t % 10
+        extra = 1
+      }
+      head = new ListNode(t)
+      l2 = l2.next
+      prev.next = head
+    }
+  }
+  // 最后一位
+  if (extra === 1) {
+    const prev = head
+    head = new ListNode(1)
+    prev.next = head
+  }
+
+  return dumpNode.next
+}
+/**
+ * 61. 旋转链表
+ * @https://leetcode-cn.com/problems/rotate-list/
+ * @param head
+ * @param k
+ */
+export function rotateRight(head: ListNode | null, k: number): ListNode | null {
+  // 求旋转了 linked-list length % k 次的结果
+  if (!head) return head
+  if (k <= 0 || !head.next) {
+    return head
+  }
+  let length = 0
+  let _head: ListNode | null = head
+
+  while (_head) {
+    _head = _head.next
+    length++
+  }
+  const actual = k % length
+  if (actual === 0) return head
+  // 倒数actual个元素移动到前面
+  let slow: ListNode | null = head
+  let fast: ListNode | null = head
+  let times = 0
+  while (fast && fast?.next) {
+    fast = fast?.next
+    ++times
+    if (times >= actual + 1) {
+      slow = slow?.next || null
+    }
+  }
+  if (slow?.next) {
+    const next = slow.next
+    slow.next = null
+    let _head = next
+    while (_head.next) {
+      _head = _head.next
+    }
+    _head.next = head
+    return next
+  }
+  return null
+}
+/**
+ *
+ * @param head
+ * @param k
+ * @returns
+ */
+export function rotateRight2(head: ListNode | null, k: number): ListNode | null {
+  if (!head) return head
+  if (k <= 0 || !head.next) {
+    return head
+  }
+  let n = 1
+  let curr: ListNode | null = head
+
+  while (curr?.next) {
+    curr = curr.next
+    n++
+  }
+  curr.next = head // 连接成环, 成环旋转
+  // n - k % n是新链表头节点的索引
+  // n - k % n - 1是新链表尾节点的索引
+  for (let index = 0; index < n - (k % n) - 1; index++) {
+    head = head?.next || null
+  }
+  if (head && head.next) {
+    const newHead = head.next
+    head.next = null // 断开环
+    return newHead
+  }
+  return null
 }
