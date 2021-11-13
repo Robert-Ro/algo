@@ -1,3 +1,5 @@
+import { LinkedNode } from '../data-structure/linked-list/SinglyLinkedList'
+
 /**
  * 旋转数组
  * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
@@ -177,11 +179,12 @@ export function moveZeroes(nums: number[]): number[] {
   }
   return nums
 }
-export class ListNode {
-  val: number
+export class ListNode extends LinkedNode<number> {
+  data: number
   next: ListNode | null
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val
+  constructor(data: number, next?: ListNode) {
+    super(data, next)
+    this.data = data === undefined ? 0 : data
     this.next = next === undefined ? null : next
   }
 }
@@ -258,4 +261,55 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
     end.next = end?.next?.next || null
   }
   return preNode.next
+}
+/**
+ * 141. 环形链表
+ * 给定一个链表，判断链表中是否有环。
+ * https://leetcode-cn.com/problems/linked-list-cycle/
+ * @param head
+ * @returns
+ */
+export function hasCycle(head: ListNode | null): boolean {
+  let fast = head
+  let slow = head
+  while (fast !== null && fast.next !== null) {
+    slow = slow?.next || null
+    fast = fast.next.next
+    if (fast === slow) {
+      return true
+    }
+  }
+
+  return false
+}
+/**
+ * 142. 环形链表 II
+ * 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+ * @https://leetcode-cn.com/problems/linked-list-cycle-ii/
+ * @param head
+ * @returns
+ */
+export function detectCycle(head: ListNode | null): ListNode | null {
+  if (!head || !head.next) {
+    return null
+  }
+  let fast = head
+  let slow = head
+  while (fast !== null && fast.next !== null) {
+    if (!slow?.next) return null
+    slow = slow.next
+    if (!fast.next.next) return null
+    fast = fast.next.next
+    if (fast === slow) {
+      break
+    }
+  }
+  slow = head
+  while (fast !== slow) {
+    if (!slow?.next) return null
+    slow = slow.next
+    if (!fast?.next) return null
+    fast = fast.next
+  }
+  return slow ?? null
 }

@@ -1,5 +1,4 @@
 import BinarySearchTree from './BinarySearchTree'
-import { describe, test, expect, it } from '@jest/globals'
 
 describe('BinarySearchTree', () => {
   test('test for in order traverse', () => {
