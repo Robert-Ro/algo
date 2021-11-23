@@ -9,6 +9,7 @@ import {
   binarySearchInCycleArray,
   searchInsert,
   twoSum,
+  getSqrt2,
 } from './binary-search'
 
 describe('binnary search', () => {
@@ -46,12 +47,22 @@ describe('binnary search', () => {
   describe("how to get a number's sqrt", () => {
     it("number 9's sqrt should be 3", () => {
       expect(getSqrt(9)).toEqual(3)
+      expect(getSqrt2(9)).toEqual(3)
     })
     it("number 3's sqrt should be 1.732050", () => {
       expect(getSqrt(3)).toEqual(1.73205)
     })
     it("number 10's sqrt should be 3.16228", () => {
       expect(getSqrt(10)).toEqual(3.16228)
+      expect(getSqrt2(10)).toEqual(3)
+    })
+    it("number 1's sqrt should be 1", () => {
+      expect(getSqrt(1)).toEqual(1)
+      expect(getSqrt2(1)).toEqual(1)
+    })
+    it("number 36's sqrt should be 6", () => {
+      expect(getSqrt(36)).toEqual(6)
+      expect(getSqrt2(36)).toEqual(6)
     })
   })
   describe('cycle array binary-search', () => {

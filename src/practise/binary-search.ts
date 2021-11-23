@@ -151,19 +151,38 @@ export function binarySearchLastEqualOrSmaller(nums: number[], target: number): 
  * @returns
  */
 export const getSqrt = (num: number): number => {
+  if (num === 1) return 1
   let low = 0
   let high = num
   while (low <= high) {
-    const middle = low + (high - low) / 2
+    const middle = low + ((high - low) >>> 1) // >>> 无符号右移
     if (+(middle * middle).toPrecision(6) === num) {
       return +middle.toPrecision(6)
-    } else if (middle * middle > num) {
+    } else if (middle > num / middle) {
       high = middle - 0.000001
     } else {
       low = middle + 0.000001
     }
   }
   return 0
+}
+export function getSqrt2(x: number): number {
+  if (x === 0) return 0
+  let left = 0
+  let right = x
+  const threshold = 0.0001
+  while (left <= right) {
+    const middle = left + ((right - left) >>> 1)
+    if (Math.abs(middle - x / middle) <= threshold) {
+      // NOTE 溢出问题
+      return Math.round(middle)
+    } else if (middle - x / middle > 0) {
+      right = middle - threshold
+    } else {
+      left = middle + threshold
+    }
+  }
+  return -1
 }
 /**
  * 牛顿弦切法求解平方根
@@ -173,7 +192,7 @@ export const getSqrt = (num: number): number => {
  */
 export const chord = (number: number): number => {
   let init = number > 4 ? number / 2 : number
-  while (init * init - number > 1e-6) {
+  while (init - number / init > 1e-6) {
     init = (number + init * init) / 2 / init
   }
   return init
