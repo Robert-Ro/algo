@@ -12,7 +12,7 @@ describe('滑动窗口习题集', () => {
       expect(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2)).toBe(false)
     })
   })
-  describe('76', () => {
+  describe('exercise 76', () => {
     it('case 1', () => {
       expect(minWindow('ADOBECODEBANC', 'ABC')).toEqual('BANC')
     })
@@ -21,6 +21,10 @@ describe('滑动窗口习题集', () => {
     })
     it('case 3', () => {
       expect(minWindow('a', 'aa')).toEqual('')
+    })
+    it('case 3', () => {
+      // FIXME
+      // expect(minWindow('aa', 'aa')).toEqual('aa')
     })
   })
 })
