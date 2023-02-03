@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": [
+      "es2017",
+      "DOM"
+    ],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "./out",
+    "skipLibCheck": true,
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "include": [
+    "src",
+  ]
+}
