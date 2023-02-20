@@ -1,4 +1,4 @@
-import { ILinkedList, INode } from '.'
+import type { ILinkedList, INode } from './index.d'
 
 export class LinkedNode<T> implements INode<T> {
   data: T
