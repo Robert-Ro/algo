@@ -32,6 +32,7 @@ export function rotateSolution2(nums: number[], k: number): number[] {
 }
 const reverse = (nums: number[], start: number, end: number) => {
   while (start < end) {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;[nums[start++], nums[end--]] = [nums[end], nums[start]]
   }
 }
@@ -140,6 +141,7 @@ export function reverseString2(s: string[]): string[] {
   let right = s.length - 1
   for (; left < right; left++, right--) {
     // 交换了n/2次
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;[s[left], s[right]] = [s[right], s[left]]
   }
   return s
@@ -226,7 +228,7 @@ export function middleNode2(head: ListNode | null): ListNode | null {
 
   let k = 0
   curr = head
-  //Math.trunc() 方法会将数字的小数部分去掉，只保留整数部分。https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+  // Math.trunc() 方法会将数字的小数部分去掉，只保留整数部分。https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
   while (k < Math.trunc(n / 2)) {
     ++k
     curr = curr?.next || null
@@ -247,7 +249,7 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
   let end: ListNode | null = preNode
   let start = head
   // 倒数第k个，正数第n-k个
-  //fast先走，slow慢n步走，
+  // fast先走，slow慢n步走，
   while (n > 0) {
     start = start?.next || null
     n--

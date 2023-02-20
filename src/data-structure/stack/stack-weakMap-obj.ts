@@ -6,6 +6,7 @@ export default class StackWeapMapObj {
     items.set(this, {})
     count.set(this, 0)
   }
+
   /**
    * O(1)
    */
@@ -19,18 +20,23 @@ export default class StackWeapMapObj {
     count.set(this, _index)
     return item
   }
+
   /**
    * O(1)
    */
+  // FIXME
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   push(element: any) {
     const _count = count.get(this)
     items.get(this)[_count] = element
     const __count = _count + 1
     count.set(this, __count)
   }
+
   size() {
     return count.get(this)
   }
+
   /**
    * O(1)
    */
@@ -40,12 +46,15 @@ export default class StackWeapMapObj {
     }
     return items.get(this)[count.get(this) - 1]
   }
+
   isEmpty() {
     return count.get(this) === 0
   }
+
   clear() {
     items.set(this, [])
   }
+
   toString() {
     if (this.isEmpty()) {
       return ''

@@ -42,7 +42,7 @@ export function binarySearchVariant(nums: number[], target: number): number {
 
   return -1
 }
-/*********元素查找变体问题***********/
+/** *******元素查找变体问题***********/
 /**
  * 有序数组二分查找第一个匹配
  * 给定一个有序的数组，查找第一个等于 value 的下标，找不到返回 -1。
@@ -111,7 +111,7 @@ export function binarySearchFirstEqualOrGreater(nums: number[], target: number):
   while (low <= high) {
     const middle = low + ((high - low) >> 1)
     if (nums[middle] >= target) {
-      if (middle == 0 || nums[middle - 1] < target) {
+      if (middle === 0 || nums[middle - 1] < target) {
         return middle
       }
       high = middle - 1
@@ -143,7 +143,7 @@ export function binarySearchLastEqualOrSmaller(nums: number[], target: number): 
   }
   return -1
 }
-/*********二分法应用***********/
+/** *******二分法应用***********/
 /**
  * 求一个数的平方根，精确到小数点后6位
  * 思路：0 - num 之间找一个数m， m * m = num
@@ -248,7 +248,7 @@ export function binarySearchInCycleArray(nums: number[], target: number): number
     if (nums[mid] === target) {
       return mid
     }
-    //[low, middle] (middle, high]
+    // [low, middle] (middle, high]
     if (nums[low] <= nums[mid]) {
       // 前半边有序
       if (nums[low] <= target && nums[mid] > target) {

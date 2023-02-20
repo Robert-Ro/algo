@@ -26,8 +26,7 @@ export const render = (data: Status[]) => {
     i.style.width = '10px'
     i.style.height = '10px'
     i.style.border = '1px solid #eee'
-    i.style.background =
-      datum === Status.VISITED ? 'green' : datum === Status.SELECTED ? 'red' : 'white'
+    i.style.background = datum === Status.VISITED ? 'green' : datum === Status.SELECTED ? 'red' : 'white'
     collections.appendChild(i)
   })
 

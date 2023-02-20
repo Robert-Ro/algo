@@ -1,11 +1,14 @@
 export default class Stack<T> {
   private count: number
+  // FIXME
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private items: any
 
   constructor() {
     this.items = {}
     this.count = 0
   }
+
   /**
    * O(1)
    */
@@ -18,6 +21,7 @@ export default class Stack<T> {
     delete this.items[this.count]
     return item
   }
+
   /**
    * O(1)
    */
@@ -25,9 +29,11 @@ export default class Stack<T> {
     this.items[this.count] = element
     this.count++
   }
+
   size() {
     return this.count
   }
+
   /**
    * O(1)
    */
@@ -37,13 +43,16 @@ export default class Stack<T> {
     }
     return this.items[this.count - 1]
   }
+
   isEmpty() {
     return this.count === 0
   }
+
   clear() {
     this.items = {}
     this.count = 0
   }
+
   toString() {
     if (this.isEmpty()) {
       return ''

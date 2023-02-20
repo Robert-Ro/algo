@@ -1,6 +1,6 @@
 import baseConverter from './utils'
 
-//Common Matchers
+// Common Matchers
 const input = 100345
 test('100345 convert to binary is 11000011111111001', () => {
   expect(baseConverter(2, input)).toBe('11000011111111001')

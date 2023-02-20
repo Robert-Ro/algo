@@ -1,9 +1,11 @@
-// @ts-check
-const items = new WeakMap()
+// FIXME
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const items = new WeakMap<any, any>()
 export default class StackWeakMapArray {
   constructor() {
     items.set(this, [])
   }
+
   /**
    * O(1)
    */
@@ -14,15 +16,20 @@ export default class StackWeakMapArray {
     const item = items.get(this).pop()
     return item
   }
+
   /**
    * O(1)
    */
+  // FIXME
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   push(element: any) {
     items.get(this).push(element)
   }
+
   size() {
     return items.get(this).length
   }
+
   /**
    * O(1)
    */
@@ -32,12 +39,15 @@ export default class StackWeakMapArray {
     }
     return items.get(this)[this.size() - 1]
   }
+
   isEmpty() {
     return items.get(this).length === 0
   }
+
   clear() {
     items.set(this, [])
   }
+
   toString() {
     if (this.isEmpty()) {
       return ''

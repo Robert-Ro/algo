@@ -1,4 +1,4 @@
-import { LinkedNode, SinglyLinkedList } from '../data-structure/linked-list/SinglyLinkedList'
+import { SinglyLinkedList } from '../data-structure/linked-list/SinglyLinkedList'
 import { ListNode } from './two-pointer'
 
 /**
@@ -56,10 +56,7 @@ export function mergeTwoLists2(l1: ListNode | null, l2: ListNode | null): ListNo
  * @param headA
  * @param headB
  */
-export function getIntersectionNode(
-  headA: ListNode | null,
-  headB: ListNode | null
-): ListNode | null {
+export function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
   // 只有当链表 headA 和 headB 都不为空时，两个链表才可能相交。因此首先判断链表 headA 和 headB 是否为空，
   // 如果其中至少有一个链表为空，则两个链表一定不相交，返回 null。
 
@@ -166,10 +163,7 @@ export function isPalindrome(head: ListNode | null): boolean {
  * @param head
  * @returns
  */
-export function continuousSpace(
-  head: ListNode,
-  compare: (a: number, b: number) => boolean
-): number[][] {
+export function continuousSpace(head: ListNode, compare: (a: number, b: number) => boolean): number[][] {
   let slow: ListNode | null = head
   let fast: ListNode | null = head?.next
   const result: number[][] = []
@@ -220,9 +214,7 @@ function number2time(nums: number[], index: number): string {
 }
 
 function index2string(index: number): string {
-  return index % 2 === 0
-    ? `${`${index / 2}`.padStart(2, '0')}:00`
-    : `${`${Math.floor(index / 2)}`.padStart(2, '0')}:30`
+  return index % 2 === 0 ? `${`${index / 2}`.padStart(2, '0')}:00` : `${`${Math.floor(index / 2)}`.padStart(2, '0')}:30`
 }
 /**
  * 两数相加
@@ -252,7 +244,7 @@ export function addTwoNumbers2(l1: ListNode | null, l2: ListNode | null): ListNo
     return int
   }
   const total = getTotal(l1) + getTotal(l2)
-  const totalStr = new Number(`${total}`).toLocaleString().replace(/,/g, '').split('')
+  const totalStr = `${total}`.toLocaleString().replace(/,/g, '').split('')
   const dumpNode = new ListNode(-1)
   let head = dumpNode
   while (totalStr.length) {

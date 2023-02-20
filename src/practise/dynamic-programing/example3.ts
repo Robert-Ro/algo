@@ -34,8 +34,8 @@ export const method1 = (input: number[]): number => {
  * @returns
  */
 export const method2 = (input: number[]): number => {
-  let maxProfit = 0,
-    minPrice = input[0]
+  let maxProfit = 0
+  let minPrice = input[0]
   for (let i = 1; i < input.length; i++) {
     const ele = input[i]
     if (ele > minPrice) {
@@ -54,8 +54,8 @@ export const method2 = (input: number[]): number => {
  * @returns
  */
 export const maxProfit = (prices: number[], fee: number): number => {
-  let hold = -prices[0],
-    cash = 0
+  let hold = -prices[0]
+  let cash = 0
   for (let i = 1; i < prices.length; i++) {
     cash = Math.max(cash, hold + prices[i] - fee)
     hold = Math.max(hold, cash - prices[i])

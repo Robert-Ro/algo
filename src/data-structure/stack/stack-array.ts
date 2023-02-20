@@ -11,21 +11,25 @@ export default class StackArray<T> {
     const length = this.items.length
     return this.items[length - 1]
   }
+
   size() {
     return this.items.length
   }
+
   /**
    * 该栈是否为空
    */
   isEmpty() {
     return this.items.length === 0
   }
+
   /**
    * 清空栈
    */
   clear() {
     this.items = []
   }
+
   /**
    * 入栈
    */

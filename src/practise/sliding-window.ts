@@ -26,7 +26,7 @@ export function containsNearbyDuplicate(nums: number[], k: number): boolean {
  * @param t
  */
 export function minWindow(s: string, t: string): string {
-  //给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。
+  // 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。
   // 如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
   /**
    * 所需的字符集合
@@ -70,7 +70,7 @@ export function minWindow(s: string, t: string): string {
         valid++
       }
     }
-    //判断窗口中的字符串是否符合要求，left不再继续移动
+    // 判断窗口中的字符串是否符合要求，left不再继续移动
     while (valid === t.length) {
       // 在这里更新最小覆盖子串，如果前面有匹配到的子串，这里可以再次判断
       if (right - left < len) {
@@ -87,7 +87,7 @@ export function minWindow(s: string, t: string): string {
         if (window.get(d) === need.get(d)) {
           valid-- // 窗口中的字符串不再符合要求
         }
-        window.set(d, (window.get(d) || 0) - 1) //更新窗口
+        window.set(d, (window.get(d) || 0) - 1) // 更新窗口
       }
     }
   }

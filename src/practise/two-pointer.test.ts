@@ -71,29 +71,13 @@ describe('two pointer test cases', () => {
       expect(reverseString2(['h', 'e', 'l', 'l', 'o'])).toStrictEqual(['o', 'l', 'l', 'e', 'h'])
     })
     it('case 2', () => {
-      expect(reverseString(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual([
-        'h',
-        'a',
-        'n',
-        'n',
-        'a',
-        'H',
-      ])
-      expect(reverseString2(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual([
-        'h',
-        'a',
-        'n',
-        'n',
-        'a',
-        'H',
-      ])
+      expect(reverseString(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual(['h', 'a', 'n', 'n', 'a', 'H'])
+      expect(reverseString2(['H', 'a', 'n', 'n', 'a', 'h'])).toStrictEqual(['h', 'a', 'n', 'n', 'a', 'H'])
     })
   })
   describe('leetcode 557 反转字符串中的单词 III', () => {
     it('case 1', () => {
-      expect(reverseWords("Let's take LeetCode contest")).toStrictEqual(
-        "s'teL ekat edoCteeL tsetnoc"
-      )
+      expect(reverseWords("Let's take LeetCode contest")).toStrictEqual("s'teL ekat edoCteeL tsetnoc")
     })
   })
   describe('leetcode 283. 移动零', () => {
@@ -106,10 +90,7 @@ describe('two pointer test cases', () => {
   })
   describe('leetcode 876. 链表的中间结点', () => {
     it('case 1', () => {
-      const listnode = new ListNode(
-        1,
-        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
-      )
+      const listnode = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))))
       expect(middleNode(listnode)).toStrictEqual(new ListNode(3, new ListNode(4, new ListNode(5))))
       expect(middleNode2(listnode)).toStrictEqual(new ListNode(3, new ListNode(4, new ListNode(5))))
     })
@@ -134,10 +115,7 @@ describe('two pointer test cases', () => {
   })
   describe('leetcode 19. 删除链表的倒数第N个结点', () => {
     it('case 1', () => {
-      const listnode = new ListNode(
-        1,
-        new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
-      )
+      const listnode = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))))
       expect(removeNthFromEnd(listnode, 2)).toStrictEqual(
         new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5))))
       )
