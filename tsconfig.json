@@ -1,13 +1,15 @@
 {
-  "extends":"@liutsing/tsconfig",
+  "extends": "@liutsing/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "outDir": "./out",
-    "rootDir":"."
-  },
+
+    "outDir": "out",
+    "target": "ES5",
+    "module": "CommonJS",
+    "sourceMap": true
+  }
 }

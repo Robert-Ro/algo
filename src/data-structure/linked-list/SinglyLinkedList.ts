@@ -9,6 +9,7 @@ export class LinkedNode<T> implements INode<T> {
   }
 
   toString(): string {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return `${this.data}`
   }
 }
@@ -276,7 +277,7 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   replace(oldValue: T, newValue: T): INode<T> {
-    if (!this.head) throw TypeError('linkedList head can\'t be null')
+    if (!this.head) throw TypeError("linkedList head can't be null")
 
     let curr: INode<T> | null = this.head
     if (this.size() === 1) if (this.head.data === oldValue) this.head.data = newValue
@@ -292,7 +293,7 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   replaceAtIndex(index: number, value: T): INode<T> {
-    if (!this.head) throw TypeError('linkedList head can\'t be null')
+    if (!this.head) throw TypeError("linkedList head can't be null")
 
     const node = this.findByIndex(index)
     if (node) node.data = value
