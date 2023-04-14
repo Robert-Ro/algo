@@ -11,9 +11,8 @@ export default class StackWeapMapObj {
    * O(1)
    */
   pop() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     const index = count.get(this)
     const _index = index - 1
     const item = items.get(this)[_index]
@@ -41,9 +40,8 @@ export default class StackWeapMapObj {
    * O(1)
    */
   peek() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     return items.get(this)[count.get(this) - 1]
   }
 
@@ -56,9 +54,8 @@ export default class StackWeapMapObj {
   }
 
   toString() {
-    if (this.isEmpty()) {
-      return ''
-    }
+    if (this.isEmpty()) return ''
+
     return JSON.stringify(items.get(this))
   }
 }

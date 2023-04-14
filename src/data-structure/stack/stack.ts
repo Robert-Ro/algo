@@ -1,8 +1,8 @@
 export default class Stack<T> {
   private count: number
   // FIXME
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private items: any
+
+  private items: AnyToFix
 
   constructor() {
     this.items = {}
@@ -13,9 +13,8 @@ export default class Stack<T> {
    * O(1)
    */
   pop() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     this.count--
     const item = this.items[this.count]
     delete this.items[this.count]
@@ -38,9 +37,8 @@ export default class Stack<T> {
    * O(1)
    */
   peek() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     return this.items[this.count - 1]
   }
 
@@ -54,12 +52,13 @@ export default class Stack<T> {
   }
 
   toString() {
-    if (this.isEmpty()) {
-      return ''
-    }
+    if (this.isEmpty()) return ''
+
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     let objString = `${this.items[0]}`
     for (let index = 1; index < this.count; index++) {
       const element = this.items[index]
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       objString = `${objString}, ${element}`
     }
     return objString

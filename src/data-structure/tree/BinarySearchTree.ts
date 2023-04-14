@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Compare, defaultCompare } from '@/util'
 import { Node } from './Node'
+import { Compare, defaultCompare } from '@/util'
 
 interface ITree {
   insert(key: number): void
@@ -42,26 +41,17 @@ export default class BinarySearchTree implements ITree {
   }
 
   insert(key: number): void {
-    if (this.root === null) {
-      this.root = new Node(key)
-    } else {
-      this.insertNode(this.root, key)
-    }
+    if (this.root === null) this.root = new Node(key)
+    else this.insertNode(this.root, key)
   }
 
   private insertNode(node: Node, key: number): void {
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
-      if (node.left === null) {
-        node.left = new Node(key)
-      } else {
-        this.insertNode(node.left, key)
-      }
+      if (node.left === null) node.left = new Node(key)
+      else this.insertNode(node.left, key)
     } else {
-      if (node.right === null) {
-        node.right = new Node(key)
-      } else {
-        this.insertNode(node.right, key)
-      }
+      if (node.right === null) node.right = new Node(key)
+      else this.insertNode(node.right, key)
     }
   }
 
@@ -70,20 +60,15 @@ export default class BinarySearchTree implements ITree {
   }
 
   private searchNode(node: Node | null, key: number): boolean {
-    if (node === null) {
-      return false
-    }
-    if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
-      return this.searchNode(node.left, key)
-    } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
-      return this.searchNode(node.right, key)
-    } else {
-      return true
-    }
+    if (node === null) return false
+
+    if (this.compareFn(key, node.key) === Compare.LESS_THAN) return this.searchNode(node.left, key)
+    else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) return this.searchNode(node.right, key)
+    else return true
   }
 
   inOrderTraverse(callback: (key: number) => void): void {
-    this.inOrderTraverseNode(this.root!, callback)
+    this.inOrderTraverseNode(this.root, callback)
   }
 
   private inOrderTraverseNode(node: Node | null, callback: (key: number) => void): void {
@@ -124,9 +109,8 @@ export default class BinarySearchTree implements ITree {
 
   private minNode(node: Node): Node {
     let current = node
-    while (current !== null && current.left !== null) {
-      current = current.left
-    }
+    while (current !== null && current.left !== null) current = current.left
+
     return current
   }
 
@@ -136,9 +120,8 @@ export default class BinarySearchTree implements ITree {
 
   private maxNode(node: Node): Node {
     let current = node
-    while (current !== null && current.right !== null) {
-      current = current.right
-    }
+    while (current !== null && current.right !== null) current = current.right
+
     return current
   }
 
@@ -147,9 +130,8 @@ export default class BinarySearchTree implements ITree {
   }
 
   private removeNode(node: Node | null, key: number): Node | null {
-    if (node === null) {
-      return null
-    }
+    if (node === null) return null
+
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
       node.left = this.removeNode(node.left, key)
       return node

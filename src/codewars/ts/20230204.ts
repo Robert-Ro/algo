@@ -8,5 +8,5 @@ export function narcissistic(value: number): boolean {
   const values = `${value}`.split('').map((i) => +i)
   const length = values.length
 
-  return values.reduce((p, c) => p - Math.pow(c, length), value) === 0
+  return values.reduce((p, c) => p - c ** length, value) === 0
 }

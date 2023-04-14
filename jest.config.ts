@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from 'jest'
+
+const config: Config = {
   testEnvironment: 'node',
   moduleDirectories: ['node_modules'],
   roots: ['<rootDir>/src'],
@@ -7,6 +9,8 @@ module.exports = {
     '@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(t|j)sx?$': ['@swc-node/jest'],
+    '^.+\\.(t|j)sx?$': '@swc-node/jest',
   },
 }
+
+export default config

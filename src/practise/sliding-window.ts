@@ -12,9 +12,7 @@ export function containsNearbyDuplicate(nums: number[], k: number): boolean {
     const elei = nums[i]
     for (let j = i + 1; j < nums.length; j++) {
       const elej = nums[j]
-      if (elei === elej && j - i <= k) {
-        return true
-      }
+      if (elei === elej && j - i <= k) return true
     }
   }
   return false
@@ -36,9 +34,8 @@ export function minWindow(s: string, t: string): string {
    * 滑动窗口
    */
   const window: Map<string, number> = new Map()
-  for (const c of t) {
-    need.set(c, (need.get(c) || 0) + 1)
-  }
+  for (const c of t) need.set(c, (need.get(c) || 0) + 1)
+
   /**
    * 左指针
    */

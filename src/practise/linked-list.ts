@@ -33,12 +33,10 @@ export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNod
  * @returns
  */
 export function mergeTwoLists2(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-  if (l1 === null) {
-    return l2
-  }
-  if (l2 === null) {
-    return l1
-  }
+  if (l1 === null) return l2
+
+  if (l2 === null) return l1
+
   if (l1.data > l2.data) {
     l2.next = mergeTwoLists2(l1, l2.next)
     return l2
@@ -61,9 +59,8 @@ export function getIntersectionNode(headA: ListNode | null, headB: ListNode | nu
   // 如果其中至少有一个链表为空，则两个链表一定不相交，返回 null。
 
   // FIXME 理解题型
-  if (headA === null || headB === null) {
-    return null
-  }
+  if (headA === null || headB === null) return null
+
   let pA: ListNode | null = headA
   let pB: ListNode | null = headB
 
@@ -86,9 +83,8 @@ export function removeElements1(head: ListNode | null, val: number): ListNode | 
   let curr = head
 
   while (curr) {
-    if (curr.data !== val) {
-      ll.add(curr.data)
-    }
+    if (curr.data !== val) ll.add(curr.data)
+
     curr = curr.next
   }
   return ll.head
@@ -98,11 +94,8 @@ export function removeElements(head: ListNode | null, val: number): ListNode | n
   dumyNode.next = head
   let temp: ListNode | null = dumyNode
   while (temp.next !== null) {
-    if (temp.next.data === val) {
-      temp.next = temp.next.next
-    } else {
-      temp = temp?.next
-    }
+    if (temp.next.data === val) temp.next = temp.next.next
+    else temp = temp?.next
   }
   return dumyNode.next
 }
@@ -116,9 +109,8 @@ export function removeElements(head: ListNode | null, val: number): ListNode | n
  * @param head
  */
 export function oddEvenList(head: ListNode | null): ListNode | null {
-  if (head === null) {
-    return null
-  }
+  if (head === null) return null
+
   const evenHead = head.next
   let odd = head
   let even = evenHead
@@ -143,16 +135,14 @@ export function isPalindrome(head: ListNode | null): boolean {
   // 给你一个单链表的头节点 head ，
   // 请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false。
   // 双指针法
-  if (!head || !head.next) {
-    return false
-  }
+  if (!head || !head.next) return false
+
   let slow: ListNode | null = head
   let fast: ListNode | null = head.next
 
   while (fast && fast.next) {
-    if (fast.data === slow?.data) {
-      slow = slow.next
-    }
+    if (fast.data === slow?.data) slow = slow.next
+
     fast = fast.next
   }
   return false
@@ -229,9 +219,8 @@ export function addTwoNumbers2(l1: ListNode | null, l2: ListNode | null): ListNo
   // 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
   if (!l1) return l2
   if (!l2) return l1
-  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) {
-    return l1
-  }
+  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) return l1
+
   const getTotal = (l1: ListNode): number => {
     let int = 0
     let head: ListNode | null = l1
@@ -268,9 +257,8 @@ export function addTwoNumbers2(l1: ListNode | null, l2: ListNode | null): ListNo
 export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
   if (!l1) return l2
   if (!l2) return l1
-  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) {
-    return l1
-  }
+  if (l1.data === 0 && !l1.next && l2.data === 0 && !l2.next) return l1
+
   const dumpNode = new ListNode(-1)
   let head = dumpNode
   let extra = 0
@@ -334,9 +322,8 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
 export function rotateRight(head: ListNode | null, k: number): ListNode | null {
   // 求旋转了 linked-list length % k 次的结果
   if (!head) return head
-  if (k <= 0 || !head.next) {
-    return head
-  }
+  if (k <= 0 || !head.next) return head
+
   let length = 0
   let _head: ListNode | null = head
 
@@ -353,17 +340,14 @@ export function rotateRight(head: ListNode | null, k: number): ListNode | null {
   while (fast && fast?.next) {
     fast = fast?.next
     ++times
-    if (times >= actual + 1) {
-      slow = slow?.next || null
-    }
+    if (times >= actual + 1) slow = slow?.next || null
   }
   if (slow?.next) {
     const next = slow.next
     slow.next = null
     let _head = next
-    while (_head.next) {
-      _head = _head.next
-    }
+    while (_head.next) _head = _head.next
+
     _head.next = head
     return next
   }
@@ -377,9 +361,8 @@ export function rotateRight(head: ListNode | null, k: number): ListNode | null {
  */
 export function rotateRight2(head: ListNode | null, k: number): ListNode | null {
   if (!head) return head
-  if (k <= 0 || !head.next) {
-    return head
-  }
+  if (k <= 0 || !head.next) return head
+
   let n = 1
   let curr: ListNode | null = head
 
@@ -390,9 +373,8 @@ export function rotateRight2(head: ListNode | null, k: number): ListNode | null 
   curr.next = head // 连接成环, 成环旋转
   // n - k % n是新链表头节点的索引
   // n - k % n - 1是新链表尾节点的索引
-  for (let index = 0; index < n - (k % n) - 1; index++) {
-    head = head?.next || null
-  }
+  for (let index = 0; index < n - (k % n) - 1; index++) head = head?.next || null
+
   if (head && head.next) {
     const newHead = head.next
     head.next = null // 断开环

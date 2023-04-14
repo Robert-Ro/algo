@@ -1,14 +1,14 @@
 import { SinglyLinkedList } from '../data-structure/linked-list/SinglyLinkedList'
 import {
+  addTwoNumbers,
+  addTwoNumbers2,
+  continuousSpace,
   mergeTwoLists,
   mergeTwoLists2,
-  removeElements,
   oddEvenList,
-  continuousSpace,
-  timeBitmapToRanges,
-  addTwoNumbers2,
-  addTwoNumbers,
+  removeElements,
   rotateRight,
+  timeBitmapToRanges,
 } from './linked-list'
 
 describe('链表刷题', () => {

@@ -1,0 +1,1 @@
+/// <reference types="@liutsing/types-utils/global.d.ts" />

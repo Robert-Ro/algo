@@ -1,8 +1,7 @@
-import { SinglyLinkedList } from '@/data-structure/linked-list/SinglyLinkedList'
 import {
+  ListNode,
   detectCycle,
   hasCycle,
-  ListNode,
   middleNode,
   middleNode2,
   moveZeroes,
@@ -17,6 +16,7 @@ import {
   twoSumISolution2,
   twoSumWithSortArray,
 } from './two-pointer'
+import { SinglyLinkedList } from '@/data-structure/linked-list/SinglyLinkedList'
 
 describe('two pointer test cases', () => {
   describe('leetcode 189 rotated array', () => {

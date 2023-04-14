@@ -1,4 +1,4 @@
-import { SinglyLinkedList, LinkedNode } from './SinglyLinkedList'
+import { LinkedNode, SinglyLinkedList } from './SinglyLinkedList'
 
 describe('LinkedList tests', () => {
   it('add', () => {

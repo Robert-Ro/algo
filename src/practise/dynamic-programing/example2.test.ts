@@ -1,4 +1,4 @@
-import { recursion1, recursion2, dp } from './example2'
+import { dp, recursion1, recursion2 } from './example2'
 
 describe('爬楼梯', () => {
   it('递归算法', () => {

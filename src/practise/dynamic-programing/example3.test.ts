@@ -1,4 +1,4 @@
-import { method1, method2, maxProfit } from './example3'
+import { maxProfit, method1, method2 } from './example3'
 
 describe('买卖股票', () => {
   it('穷举法', () => {

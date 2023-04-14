@@ -41,9 +41,8 @@ export default class StackArray<T> {
    * 出栈
    */
   pop() {
-    if (this.isEmpty()) {
-      return null
-    }
+    if (this.isEmpty()) return null
+
     const length = this.items.length
     const item = this.items[length - 1]
     this.items.pop()

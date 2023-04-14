@@ -90,11 +90,8 @@ export function binarySearchLastMatched(nums: number[], target: number): number 
     } else if (nums[mid] > target) {
       high = mid - 1
     } else {
-      if (mid === nums.length - 1 || nums[mid + 1] !== target) {
-        return mid
-      } else {
-        low = mid + 1
-      }
+      if (mid === nums.length - 1 || nums[mid + 1] !== target) return mid
+      else low = mid + 1
     }
   }
   return -1
@@ -111,9 +108,8 @@ export function binarySearchFirstEqualOrGreater(nums: number[], target: number):
   while (low <= high) {
     const middle = low + ((high - low) >> 1)
     if (nums[middle] >= target) {
-      if (middle === 0 || nums[middle - 1] < target) {
-        return middle
-      }
+      if (middle === 0 || nums[middle - 1] < target) return middle
+
       high = middle - 1
     } else {
       low = middle + 1
@@ -133,9 +129,8 @@ export function binarySearchLastEqualOrSmaller(nums: number[], target: number): 
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
     if (nums[mid] <= target) {
-      if (mid === nums.length - 1 || nums[mid + 1] > target) {
-        return mid
-      }
+      if (mid === nums.length - 1 || nums[mid + 1] > target) return mid
+
       low = mid + 1
     } else {
       high = mid - 1
@@ -156,13 +151,9 @@ export const getSqrt = (num: number): number => {
   let high = num
   while (low <= high) {
     const middle = low + ((high - low) >>> 1) // >>> 无符号右移
-    if (+(middle * middle).toPrecision(6) === num) {
-      return +middle.toPrecision(6)
-    } else if (middle > num / middle) {
-      high = middle - 0.000001
-    } else {
-      low = middle + 0.000001
-    }
+    if (+(middle * middle).toPrecision(6) === num) return +middle.toPrecision(6)
+    else if (middle > num / middle) high = middle - 0.000001
+    else low = middle + 0.000001
   }
   return 0
 }
@@ -192,9 +183,8 @@ export function getSqrt2(x: number): number {
  */
 export const chord = (number: number): number => {
   let init = number > 4 ? number / 2 : number
-  while (init - number / init > 1e-6) {
-    init = (number + init * init) / 2 / init
-  }
+  while (init - number / init > 1e-6) init = (number + init * init) / 2 / init
+
   return init
 }
 /**
@@ -245,9 +235,8 @@ export function binarySearchInCycleArray(nums: number[], target: number): number
 
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] === target) {
-      return mid
-    }
+    if (nums[mid] === target) return mid
+
     // [low, middle] (middle, high]
     if (nums[low] <= nums[mid]) {
       // 前半边有序
@@ -282,26 +271,19 @@ export function binarySearchInCycleArray(nums: number[], target: number): number
  */
 export function searchInsert(nums: number[], target: number): number {
   // 处理边界情况
-  if (nums[0] >= target) {
-    return 0
-  }
-  if (nums[nums.length - 1] === target) {
-    return nums.length - 1
-  }
-  if (nums[nums.length - 1] < target) {
-    return nums.length
-  }
+  if (nums[0] >= target) return 0
+
+  if (nums[nums.length - 1] === target) return nums.length - 1
+
+  if (nums[nums.length - 1] < target) return nums.length
+
   let low = 0
   let high = nums.length - 1
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] === target) {
-      return mid
-    } else if (nums[mid] > target) {
-      high = mid - 1
-    } else {
-      low = mid + 1
-    }
+    if (nums[mid] === target) return mid
+    else if (nums[mid] > target) high = mid - 1
+    else low = mid + 1
   }
   return low
 }
@@ -327,11 +309,8 @@ export function twoSum(numbers: number[], target: number): number[] {
         low = mid + 1
       } else {
         // 不能使用重复的数据
-        if (i === mid) {
-          low = mid + 1
-        } else {
-          return [i + 1, mid + 1]
-        }
+        if (i === mid) low = mid + 1
+        else return [i + 1, mid + 1]
       }
     }
   }

@@ -63,13 +63,9 @@ export function twoSumWithSortArray(numbers: number[], target: number): number[]
   let low = 0
   let high = numbers.length - 1
   while (low <= high) {
-    if (numbers[low] + numbers[high] === target) {
-      return [low + 1, high + 1]
-    } else if (numbers[low] + numbers[high] > target) {
-      high = high - 1
-    } else {
-      low = low + 1
-    }
+    if (numbers[low] + numbers[high] === target) return [low + 1, high + 1]
+    else if (numbers[low] + numbers[high] > target) high = high - 1
+    else low = low + 1
   }
   return []
 }
@@ -86,9 +82,7 @@ export function twoSumISolution1(nums: number[], target: number): number[] {
     const elei = nums[i]
     for (let j = i + 1; j < nums.length; j++) {
       const elej = nums[j]
-      if (elei + elej === target) {
-        return [i, j]
-      }
+      if (elei + elej === target) return [i, j]
     }
   }
   return [-1, -1]
@@ -104,15 +98,12 @@ export function twoSumISolution1(nums: number[], target: number): number[] {
 export function twoSumISolution2(nums: number[], target: number): number[] {
   // 构造一个哈希表：元素映射到相应的索引
   const map = new Map()
-  for (let i = 0; i < nums.length; i++) {
-    map.set(nums[i], i)
-  }
+  for (let i = 0; i < nums.length; i++) map.set(nums[i], i)
+
   for (let i = 0; i < nums.length; i++) {
     const other = target - nums[i]
     // 如果 other 存在且不是 nums[i] 本身
-    if (map.has(other) && map.get(other) !== i) {
-      return [i, map.get(other)]
-    }
+    if (map.has(other) && map.get(other) !== i) return [i, map.get(other)]
   }
   return [-1, -1]
 }
@@ -259,9 +250,8 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
     end = end?.next || null
   }
   // fast到达末尾，-> slow就是目标节点上一个节点
-  if (end && end.next) {
-    end.next = end?.next?.next || null
-  }
+  if (end && end.next) end.next = end?.next?.next || null
+
   return preNode.next
 }
 /**
@@ -277,9 +267,7 @@ export function hasCycle(head: ListNode | null): boolean {
   while (fast !== null && fast.next !== null) {
     slow = slow?.next || null
     fast = fast.next.next
-    if (fast === slow) {
-      return true
-    }
+    if (fast === slow) return true
   }
 
   return false
@@ -292,9 +280,8 @@ export function hasCycle(head: ListNode | null): boolean {
  * @returns
  */
 export function detectCycle(head: ListNode | null): ListNode | null {
-  if (!head || !head.next) {
-    return null
-  }
+  if (!head || !head.next) return null
+
   let fast = head
   let slow = head
   while (fast !== null && fast.next !== null) {
@@ -302,9 +289,7 @@ export function detectCycle(head: ListNode | null): ListNode | null {
     slow = slow.next
     if (!fast.next.next) return null
     fast = fast.next.next
-    if (fast === slow) {
-      break
-    }
+    if (fast === slow) break
   }
   slow = head
   while (fast !== slow) {

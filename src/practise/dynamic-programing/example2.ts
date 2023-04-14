@@ -39,9 +39,7 @@ export const recursion2 = (input: number) => {
  */
 export const dp = (input: number) => {
   const result: number[] = [0, 1, 2] // 经典的斐波那切数列
-  for (let i = 3; i <= input; i += 1) {
-    result[i] = result[i - 1] + result[i - 2]
-  }
+  for (let i = 3; i <= input; i += 1) result[i] = result[i - 1] + result[i - 2]
 
   return result[input]
 }

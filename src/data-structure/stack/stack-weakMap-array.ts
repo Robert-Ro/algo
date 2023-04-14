@@ -10,9 +10,8 @@ export default class StackWeakMapArray {
    * O(1)
    */
   pop() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     const item = items.get(this).pop()
     return item
   }
@@ -34,9 +33,8 @@ export default class StackWeakMapArray {
    * O(1)
    */
   peek() {
-    if (this.isEmpty()) {
-      return undefined
-    }
+    if (this.isEmpty()) return undefined
+
     return items.get(this)[this.size() - 1]
   }
 
@@ -49,9 +47,8 @@ export default class StackWeakMapArray {
   }
 
   toString() {
-    if (this.isEmpty()) {
-      return ''
-    }
+    if (this.isEmpty()) return ''
+
     return JSON.stringify(items.get(this))
   }
 }

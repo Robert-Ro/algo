@@ -1,8 +1,5 @@
-export const getMissingNumber = (inputs: number[]) => {
-  return getMissingNumber1(inputs)
-}
 interface Prev {
-  nums: number[]
+  numArr: number[]
   num: number
 }
 const getMissingNumber1 = (inputs: number[]) => {
@@ -11,20 +8,24 @@ const getMissingNumber1 = (inputs: number[]) => {
       if (curr - prev.num === 1) {
         // 连续的
         return {
-          nums: prev.nums,
+          numArr: prev.numArr,
           num: curr,
         }
       } else {
         // 非连续的
         const length = curr - prev.num - 1
         return {
-          nums: [...prev.nums, ...Array.from({ length }, (_, i) => i + 1 + prev.num)],
+          numArr: [...prev.numArr, ...Array.from({ length }, (_, i) => i + 1 + prev.num)],
           num: curr,
         }
       }
     },
-    { nums: [], num: inputs[0] - 1 }
+    { numArr: [], num: inputs[0] - 1 }
   )
 
-  return res.nums
+  return res.numArr
+}
+
+export const getMissingNumber = (inputs: number[]) => {
+  return getMissingNumber1(inputs)
 }

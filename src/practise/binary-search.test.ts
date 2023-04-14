@@ -1,15 +1,15 @@
 import {
   binarySearch,
-  binarySearchFirstMatched,
-  binarySearchLastMatched,
   binarySearchFirstEqualOrGreater,
+  binarySearchFirstMatched,
+  binarySearchInCycleArray,
   binarySearchLastEqualOrSmaller,
+  binarySearchLastMatched,
   binarySearchVariant,
   getSqrt,
-  binarySearchInCycleArray,
+  getSqrt2,
   searchInsert,
   twoSum,
-  getSqrt2,
 } from './binary-search'
 
 describe('binnary search', () => {

@@ -50,9 +50,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
 
   findByValue(value: T): INode<T> | null {
     let curr = this.head
-    while (curr?.next && curr.next.data !== value) {
-      curr = curr.next
-    }
+    while (curr?.next && curr.next.data !== value) curr = curr.next
+
     return curr?.next || null
   }
 
@@ -103,9 +102,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
       this.head = node
     } else {
       let curr = this.head
-      while (curr.next) {
-        curr = curr.next
-      }
+      while (curr.next) curr = curr.next
+
       curr.next = node
     }
     return true
@@ -161,22 +159,19 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   pop(): null | INode<T> {
-    if (!this.head) {
-      return null
-    }
+    if (!this.head) return null
+
     if (!this.head?.next) {
       const head = this.head
       this.head = null
       return head
     }
     let curr = this.head
-    while (curr?.next?.next) {
-      curr = curr.next
-    }
+    while (curr?.next?.next) curr = curr.next
+
     const last = curr?.next || null
-    if (curr && curr.next) {
-      curr.next = null
-    }
+    if (curr && curr.next) curr.next = null
+
     return last
   }
 
@@ -187,9 +182,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
       return this.pop()
     } else {
       let curr = this.head
-      while (curr?.next && curr.next.data !== value) {
-        curr = curr.next
-      }
+      while (curr?.next && curr.next.data !== value) curr = curr.next
+
       if (curr) {
         const nnext = curr?.next?.next || null
         const next = curr.next
@@ -225,9 +219,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   map(fn: (node: INode<T>, index: number) => INode<T>): INode<T> {
-    if (!this.head) {
-      throw TypeError('linked list is empty')
-    }
+    if (!this.head) throw TypeError('linked list is empty')
+
     let curr: LinkedNode<T> | null = this.head
     let rev = new LinkedNode<T>(curr.data)
     const sentry = rev // 哨兵节点
@@ -247,9 +240,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
     let curr = this.head
     let start = 0
     while (curr) {
-      if (curr.data === value) {
-        return start
-      }
+      if (curr.data === value) return start
+
       start++
       curr = curr.next
     }
@@ -262,9 +254,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   addAll(index: number, data: T[]): void {
-    if (data.length === 0) {
-      throw new TypeError('插入数组不能为空')
-    }
+    if (data.length === 0) throw new TypeError('插入数组不能为空')
+
     let start = 0
     let curr = this.head
     if (!curr) {
@@ -275,31 +266,23 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
       curr = curr.next
       start++
     }
-    if (curr) {
-      data?.forEach((item: T, i) => this.addAtIndex(i + 1 + index, item))
-    }
+    if (curr) data?.forEach((item: T, i) => this.addAtIndex(i + 1 + index, item))
   }
 
   addAllAtTail(data: T[]): void {
-    if (data.length === 0) {
-      throw new TypeError('插入数组不能为空')
-    }
+    if (data.length === 0) throw new TypeError('插入数组不能为空')
+
     data.forEach((item: T) => this.addAtTail(item))
   }
 
   replace(oldValue: T, newValue: T): INode<T> {
-    if (!this.head) {
-      throw TypeError("linkedList head can't be null")
-    }
+    if (!this.head) throw TypeError('linkedList head can\'t be null')
+
     let curr: INode<T> | null = this.head
-    if (this.size() === 1) {
-      if (this.head.data === oldValue) {
-        this.head.data = newValue
-      }
-    }
-    while (curr && curr.next?.data !== oldValue) {
-      curr = curr.next
-    }
+    if (this.size() === 1) if (this.head.data === oldValue) this.head.data = newValue
+
+    while (curr && curr.next?.data !== oldValue) curr = curr.next
+
     if (curr && curr.next) {
       const nnext = curr.next.next
       curr.next = new LinkedNode(newValue)
@@ -309,22 +292,19 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   replaceAtIndex(index: number, value: T): INode<T> {
-    if (!this.head) {
-      throw TypeError("linkedList head can't be null")
-    }
+    if (!this.head) throw TypeError('linkedList head can\'t be null')
+
     const node = this.findByIndex(index)
-    if (node) {
-      node.data = value
-    }
+    if (node) node.data = value
+
     return this.head
   }
 
   swap(a: number, b: number): void {
     const nodea = this.findByIndex(a)
     const nodeb = this.findByIndex(b)
-    if (!nodea || !nodeb) {
-      throw TypeError('unvalid index')
-    }
+    if (!nodea || !nodeb) throw TypeError('unvalid index')
+
     const va = nodea.data
     const vb = nodeb.data
     nodea.data = vb
@@ -332,22 +312,16 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
   }
 
   slice(from: number, to?: number): INode<T> {
-    if (from < 0) {
-      throw TypeError('from point must biger than 0')
-    }
-    if (to && from >= to) {
-      throw TypeError('from point must smaller than to point')
-    }
+    if (from < 0) throw TypeError('from point must biger than 0')
+
+    if (to && from >= to) throw TypeError('from point must smaller than to point')
+
     const fromNode = this.findByIndex(from)
-    if (!fromNode) {
-      throw TypeError('from node not existed in the linked list')
-    }
+    if (!fromNode) throw TypeError('from node not existed in the linked list')
 
     if (to) {
       const toNode = this.findByIndex(to)
-      if (toNode?.next) {
-        toNode.next = null
-      }
+      if (toNode?.next) toNode.next = null
     }
     this.head = fromNode
     return fromNode

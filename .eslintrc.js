@@ -1,4 +1,6 @@
 module.exports = {
   extends: '@liutsing/eslint-config',
-  rules: {},
+  rules: {
+    '@typescript-eslint/quotes': 'off',
+  },
 }
