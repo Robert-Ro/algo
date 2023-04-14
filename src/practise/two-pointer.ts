@@ -5,50 +5,50 @@ import { LinkedNode } from '../data-structure/linked-list/SinglyLinkedList'
  * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
  * https://leetcode-cn.com/problems/rotate-array/
  * 时间复杂度：O()，空间复杂度：O()
- * @param nums
+ * @param numbers
  * @param k
  */
-export function rotateSolution1(nums: number[], k: number): number[] {
+export function rotateSolution1(numbers: number[], k: number): number[] {
   for (let i = 0; i < k; i++) {
-    const last = nums.pop()
-    if (last) nums.unshift(last)
+    const last = numbers.pop()
+    if (last) numbers.unshift(last)
   }
-  return nums
+  return numbers
 }
 /**
  * 使用额外的数组
  * 空间复杂度O(n), 时间复杂度O(n)
- * @param nums
+ * @param numbers
  * @param k
  * @returns
  */
-export function rotateSolution2(nums: number[], k: number): number[] {
-  const res = Array(nums.length).fill(0)
-  for (let i = 0; i < nums.length; i++) {
+export function rotateSolution2(numbers: number[], k: number): number[] {
+  const res = Array(numbers.length).fill(0)
+  for (let i = 0; i < numbers.length; i++) {
     const nIndex = i + k
-    res[nIndex % nums.length] = nums[i]
+    res[nIndex % numbers.length] = numbers[i]
   }
   return res
 }
-const reverse = (nums: number[], start: number, end: number) => {
+const reverse = (numbers: number[], start: number, end: number) => {
   while (start < end) {
     // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;[nums[start++], nums[end--]] = [nums[end], nums[start]]
+    ;[numbers[start++], numbers[end--]] = [numbers[end], numbers[start]]
   }
 }
 /**
  * 数组翻转
  * 空间复杂度O(1), 时间复杂度O(n)
- * @param nums
+ * @param numbers
  * @param k
  * @returns
  */
-export function rotateSolution3(nums: number[], k: number): number[] {
-  k %= nums.length // k可能比nums.length还要大
-  reverse(nums, 0, nums.length - 1)
-  reverse(nums, 0, k - 1)
-  reverse(nums, k, nums.length - 1)
-  return nums
+export function rotateSolution3(numbers: number[], k: number): number[] {
+  k %= numbers.length // k可能比numbers.length还要大
+  reverse(numbers, 0, numbers.length - 1)
+  reverse(numbers, 0, k - 1)
+  reverse(numbers, k, numbers.length - 1)
+  return numbers
 }
 
 /**
@@ -73,15 +73,15 @@ export function twoSumWithSortArray(numbers: number[], target: number): number[]
  * Two Sum
  * 时间复杂度：O(n^2)， 空间复杂度：O(1)
  * https://leetcode.com/problems/two-sum/
- * @param nums
+ * @param numbers
  * @param target
  */
-export function twoSumISolution1(nums: number[], target: number): number[] {
+export function twoSumISolution1(numbers: number[], target: number): number[] {
   /***************************/
-  for (let i = 0; i < nums.length; i++) {
-    const elei = nums[i]
-    for (let j = i + 1; j < nums.length; j++) {
-      const elej = nums[j]
+  for (let i = 0; i < numbers.length; i++) {
+    const elei = numbers[i]
+    for (let j = i + 1; j < numbers.length; j++) {
+      const elej = numbers[j]
       if (elei + elej === target) return [i, j]
     }
   }
@@ -91,18 +91,18 @@ export function twoSumISolution1(nums: number[], target: number): number[] {
  * Two Sum
  * 时间复杂度：O(n)， 空间复杂度：O(n)
  * https://leetcode.com/problems/two-sum/
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function twoSumISolution2(nums: number[], target: number): number[] {
+export function twoSumISolution2(numbers: number[], target: number): number[] {
   // 构造一个哈希表：元素映射到相应的索引
   const map = new Map()
-  for (let i = 0; i < nums.length; i++) map.set(nums[i], i)
+  for (let i = 0; i < numbers.length; i++) map.set(numbers[i], i)
 
-  for (let i = 0; i < nums.length; i++) {
-    const other = target - nums[i]
-    // 如果 other 存在且不是 nums[i] 本身
+  for (let i = 0; i < numbers.length; i++) {
+    const other = target - numbers[i]
+    // 如果 other 存在且不是 numbers[i] 本身
     if (map.has(other) && map.get(other) !== i) return [i, map.get(other)]
   }
   return [-1, -1]
@@ -151,26 +151,26 @@ export function reverseWords(s: string): string {
 
 /**
  * 283. 移动零
- * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+ * 给定一个数组 numbers，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
  * @https://leetcode-cn.com/problems/move-zeroes/
- * @param nums
+ * @param numbers
  * @returns
  */
-export function moveZeroes(nums: number[]): number[] {
+export function moveZeroes(numbers: number[]): number[] {
   // 1. 必须在原数组上操作，不能拷贝额外的数组。
   // 2. 尽量减少操作次数。
   // Hint: The idea would be to have one pointer for iterating the array and another pointer
   // that just works on the non-zero elements of the array.
   // NOTE 快慢指针思想?
   let j = 0
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] !== 0) {
-      const temp = nums[i]
-      nums[i] = nums[j]
-      nums[j++] = temp
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] !== 0) {
+      const temp = numbers[i]
+      numbers[i] = numbers[j]
+      numbers[j++] = temp
     }
   }
-  return nums
+  return numbers
 }
 export class ListNode extends LinkedNode<number> {
   data: number

@@ -179,8 +179,8 @@ export function continuousSpace(head: ListNode, compare: (a: number, b: number) 
  * @returns
  */
 export function timeBitmapToRanges(input: string): string[] {
-  const nums: number[] = input.split('').map((v) => parseInt(v, 10))
-  const ll = SinglyLinkedList.create<number>(nums)
+  const numbers: number[] = input.split('').map((v) => parseInt(v, 10))
+  const ll = SinglyLinkedList.create<number>(numbers)
   const result = continuousSpace(ll.head!, (a, b) => a - b === 0)
   return result
     .reduce(
@@ -194,10 +194,10 @@ export function timeBitmapToRanges(input: string): string[] {
     )[0]
     .filter(Boolean)
 }
-function number2time(nums: number[], index: number): string {
-  if (nums.every((num) => num === 1)) {
+function number2time(numbers: number[], index: number): string {
+  if (numbers.every((num) => num === 1)) {
     const start = index2string(index)
-    const end = nums.length >= 2 ? index2string(index + nums.length) : index2string(index + 1)
+    const end = numbers.length >= 2 ? index2string(index + numbers.length) : index2string(index + 1)
     return `${start}~${end}`
   }
   return ''

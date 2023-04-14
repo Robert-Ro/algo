@@ -1,18 +1,18 @@
 /**
  * 219. 存在重复元素 II
  * https://leetcode-cn.com/problems/contains-duplicate-ii/
- * @param nums
+ * @param numbers
  * @param k
  * @returns
  */
-export function containsNearbyDuplicate(nums: number[], k: number): boolean {
-  // 给定一个整数数组和一个整数k，判断数组中是否存在两个不同的索引i和j，使得nums [i] = nums [j]，
+export function containsNearbyDuplicate(numbers: number[], k: number): boolean {
+  // 给定一个整数数组和一个整数k，判断数组中是否存在两个不同的索引i和j，使得numbers [i] = numbers [j]，
   // 并且i和j的差的绝对值至多为k。
-  for (let i = 0; i < nums.length; i++) {
-    const elei = nums[i]
-    for (let j = i + 1; j < nums.length; j++) {
-      const elej = nums[j]
-      if (elei === elej && j - i <= k) return true
+  for (let i = 0; i < numbers.length; i++) {
+    const outerEl = numbers[i]
+    for (let j = i + 1; j < numbers.length; j++) {
+      const innerEl = numbers[j]
+      if (outerEl === innerEl && j - i <= k) return true
     }
   }
   return false
@@ -63,9 +63,7 @@ export function minWindow(s: string, t: string): string {
     right++
     if (need.get(c)) {
       window.set(c, (window.get(c) || 0) + 1)
-      if (window.get(c) === need.get(c)) {
-        valid++
-      }
+      if (window.get(c) === need.get(c)) valid++
     }
     // 判断窗口中的字符串是否符合要求，left不再继续移动
     while (valid === t.length) {
@@ -81,9 +79,8 @@ export function minWindow(s: string, t: string): string {
       left++
       // 进行窗口内数据的一系列更新
       if (need.get(d)) {
-        if (window.get(d) === need.get(d)) {
-          valid-- // 窗口中的字符串不再符合要求
-        }
+        if (window.get(d) === need.get(d)) valid-- // 窗口中的字符串不再符合要求
+
         window.set(d, (window.get(d) || 0) - 1) // 更新窗口
       }
     }

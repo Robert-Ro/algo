@@ -15,7 +15,7 @@ describe('爬楼梯', () => {
     expect(recursion2(2)).toEqual(2)
     expect(recursion2(3)).toEqual(3)
   })
-  it('dynamic programing', () => {
+  it('dynamic programming', () => {
     expect(dp(30)).toEqual(1346269)
     // expect(dp(100)).toEqual(573147844013817200000) // 1ms
     expect(dp(1)).toEqual(1)

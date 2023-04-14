@@ -4,20 +4,20 @@
    例如：{ 1, 2, 3, 4, 5 } 找 3，返回下标 2（下标从 0 开始计算）。
  * https://ethsonliu.com/2018/04/binary-search.html
  * https://leetcode-cn.com/study-plan/algorithms/?progress=r933vah Q1
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearch(nums: number[], target: number): number {
+export function binarySearch(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
 
   while (low <= high) {
     // 防止溢出，移位也更高效。同时，每次循环都需要更新。
     // 数组元素过多时，high + low容易造成溢出
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] > target) high = mid - 1
-    else if (nums[mid] < target) low = mid + 1
+    if (numbers[mid] > target) high = mid - 1
+    else if (numbers[mid] < target) low = mid + 1
     else return mid
   }
 
@@ -25,18 +25,18 @@ export function binarySearch(nums: number[], target: number): number {
 }
 /**
  * 使用左闭右开
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearchVariant(nums: number[], target: number): number {
+export function binarySearchVariant(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length
+  let high = numbers.length
 
   while (low < high) {
     const mid = low + ((high - low) >> 1) // 防止溢出，移位也更高效。同时，每次循环都需要更新。
-    if (nums[mid] > target) high = mid
-    else if (nums[mid] < target) low = mid + 1
+    if (numbers[mid] > target) high = mid
+    else if (numbers[mid] < target) low = mid + 1
     else return mid
   }
 
@@ -47,22 +47,22 @@ export function binarySearchVariant(nums: number[], target: number): number {
  * 有序数组二分查找第一个匹配
  * 给定一个有序的数组，查找第一个等于 value 的下标，找不到返回 -1。
    例如：{ 1, 2, 2, 2, 4 } 找 2，返回下标 1（下标从 0 开始计算）。
- * @param nums
+ * @param numbers
  * @param target
  */
-export function binarySearchFirstMatched(nums: number[], target: number): number {
+export function binarySearchFirstMatched(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] > target) {
+    if (numbers[mid] > target) {
       high = mid - 1
-    } else if (nums[mid] < target) {
+    } else if (numbers[mid] < target) {
       low = mid + 1
     } else {
       // 如果 mid 等于 0，那这个元素已经是数组的第一个元素，那它肯定是我们要找的
       // 如果 mid 不等于 0，但 a[mid]的前一个元素 a[mid-1]不等于 value，那也说明 a[mid]就是我们要找的第一个值等于给定值的元素
-      if (mid === 0 || nums[mid - 1] !== target) {
+      if (mid === 0 || numbers[mid - 1] !== target) {
         return mid
       } else {
         // 如果经过检查之后发现 a[mid]前面的一个元素 a[mid-1]也等于 value，那说明此时的 a[mid]肯定不是我们要查找的第一个值等于给定值的元素。那我们就更新 high=mid-1，因为要找的元素肯定出现在[low, mid-1]之间
@@ -76,21 +76,21 @@ export function binarySearchFirstMatched(nums: number[], target: number): number
  * 有序数组二分查找查找最后一个匹配
  * 给定一个有序的数组，查找最后一个等于 value 的下标，找不到返回 -1。
    例如：{ 1, 2, 2, 2, 4 } 找 2，返回下标 3（下标从 0 开始计算）。
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearchLastMatched(nums: number[], target: number): number {
+export function binarySearchLastMatched(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] < target) {
+    if (numbers[mid] < target) {
       low = mid + 1
-    } else if (nums[mid] > target) {
+    } else if (numbers[mid] > target) {
       high = mid - 1
     } else {
-      if (mid === nums.length - 1 || nums[mid + 1] !== target) return mid
+      if (mid === numbers.length - 1 || numbers[mid + 1] !== target) return mid
       else low = mid + 1
     }
   }
@@ -98,17 +98,17 @@ export function binarySearchLastMatched(nums: number[], target: number): number 
 }
 /**
  * 变体三：查找第一个大于等于给定值的元素
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearchFirstEqualOrGreater(nums: number[], target: number): number {
+export function binarySearchFirstEqualOrGreater(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
   while (low <= high) {
     const middle = low + ((high - low) >> 1)
-    if (nums[middle] >= target) {
-      if (middle === 0 || nums[middle - 1] < target) return middle
+    if (numbers[middle] >= target) {
+      if (middle === 0 || numbers[middle - 1] < target) return middle
 
       high = middle - 1
     } else {
@@ -119,17 +119,17 @@ export function binarySearchFirstEqualOrGreater(nums: number[], target: number):
 }
 /**
  * 变体四：查找最后一个小于等于给定值的元素
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearchLastEqualOrSmaller(nums: number[], target: number): number {
+export function binarySearchLastEqualOrSmaller(numbers: number[], target: number): number {
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] <= target) {
-      if (mid === nums.length - 1 || nums[mid + 1] > target) return mid
+    if (numbers[mid] <= target) {
+      if (mid === numbers.length - 1 || numbers[mid + 1] > target) return mid
 
       low = mid + 1
     } else {
@@ -221,26 +221,26 @@ export const firstErrorVersion = function (isBadVersion: (num: number) => boolea
  * 搜索旋转排序数组
  * @https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
  * NOTE 关键：从数组中间分开，总有一边是有序的
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function binarySearchInCycleArray(nums: number[], target: number): number {
-  const n = nums.length
+export function binarySearchInCycleArray(numbers: number[], target: number): number {
+  const n = numbers.length
   if (n === 0) return -1
-  if (n === 1) return nums[0] === target ? 0 : -1
+  if (n === 1) return numbers[0] === target ? 0 : -1
 
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
 
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] === target) return mid
+    if (numbers[mid] === target) return mid
 
     // [low, middle] (middle, high]
-    if (nums[low] <= nums[mid]) {
+    if (numbers[low] <= numbers[mid]) {
       // 前半边有序
-      if (nums[low] <= target && nums[mid] > target) {
+      if (numbers[low] <= target && numbers[mid] > target) {
         // 目标元素落在左半边里，
         high = mid - 1 // 进行常规二分查找
       } else {
@@ -249,7 +249,7 @@ export function binarySearchInCycleArray(nums: number[], target: number): number
       }
     } else {
       // 后半边有序
-      if (nums[mid] < target && nums[high] >= target) {
+      if (numbers[mid] < target && numbers[high] >= target) {
         // 目标元素落在右半边里，
         low = mid + 1 // 进行常规二分查找
       } else {
@@ -265,24 +265,24 @@ export function binarySearchInCycleArray(nums: number[], target: number): number
  * 搜索插入位置
  * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
  * @https://leetcode-cn.com/problems/search-insert-position/
- * @param nums
+ * @param numbers
  * @param target
  * @returns
  */
-export function searchInsert(nums: number[], target: number): number {
+export function searchInsert(numbers: number[], target: number): number {
   // 处理边界情况
-  if (nums[0] >= target) return 0
+  if (numbers[0] >= target) return 0
 
-  if (nums[nums.length - 1] === target) return nums.length - 1
+  if (numbers[numbers.length - 1] === target) return numbers.length - 1
 
-  if (nums[nums.length - 1] < target) return nums.length
+  if (numbers[numbers.length - 1] < target) return numbers.length
 
   let low = 0
-  let high = nums.length - 1
+  let high = numbers.length - 1
   while (low <= high) {
     const mid = low + ((high - low) >> 1)
-    if (nums[mid] === target) return mid
-    else if (nums[mid] > target) high = mid - 1
+    if (numbers[mid] === target) return mid
+    else if (numbers[mid] > target) high = mid - 1
     else low = mid + 1
   }
   return low
