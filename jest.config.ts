@@ -9,7 +9,13 @@ const config: Config = {
     '@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(t|j)sx?$': '@swc-node/jest',
+    // '^.+\\.(t|j)sx?$': [
+    //   '@swc-node/jest',
+    //   {
+    //     dynamicImport: true,
+    //   },
+    // ],
+    '^.+\\.(t|j)sx?$': 'babel-jest',
   },
 }
 
